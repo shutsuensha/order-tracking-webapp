@@ -3,30 +3,29 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-<a href="/#" class="fixed-link inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">All girls</a>
-<div class="grid grid-cols-5 gap-6">
+<div class="grid grid-cols-5 md:gap-6 gap-2">
     <div class="col-span-3">
         <img src="{{ item.image.url }}" class="rounded-xl">
     </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
-        <p class="text-gray-500"><strong>Price: </strong>{{ item.price }} $</p>
+    <div class="col-span-2 px-2 py-4 lg:px-12 lg:py-24 bg-gray-100 rounded-xl">
+        <h1 class="md:mb-6 mb-4 text-xl md:text-3xl">{{ item.name }}</h1>
+        <p class="text-gray-500"><strong>Price: </strong>{{ item.price }}$</p>
     
         {% if item.description %}
             <p class="text-gray-700">
-                <strong class="text-gray-500">Description:</strong><br>
-                {{ item.description }}
+                <strong class="text-gray-500 ">Description:</strong><br>
+                <p class="text-sm">{{ item.description }} </p>
             </p>
         {% endif %}
-        <a href="https://t.me/awkjdawoihfaowifaw" target="_blank" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl">Contact</a>
+        <a href="https://t.me/awkjdawoihfaowifaw" target="_blank" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl">Contact</a>
     </div>
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Related items</h2>
+<div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl">
+    <h2 class="md:mb-12 mb-8 text-2xl text-center font-semibold">Related items</h2>
 
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-3 gap-1">
         {% for item in related_items %}
             <div>
                 <a href="{% url 'item:detail' item.id %}">
@@ -34,9 +33,9 @@
                         <img src="{{ item.image.url }}" class="rounded-t-xl">
                     </div>
 
-                    <div class="p-6 bg-white rounded-b-xl">
-                        <h2 class="text-2xl">{{ item.name }}</h2>
-                        <p class="text-gray-500">Price: {{ item.price }}</p>
+                    <div class="md:p-6 p-2 bg-white rounded-b-xl">
+                        <h2 class="md:text-2xl text-sm">{{ item.name }}</h2>
+                        <p class="text-gray-500 text-sm"">Price: {{ item.price }}</p>
                     </div>
                 </a>
             </div>
