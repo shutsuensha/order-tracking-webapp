@@ -14,7 +14,7 @@ def index(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
-        'name_category' : 'All girls'
+        'name_category' : 'Вся одежда 👕'
     })
 
 
