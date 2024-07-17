@@ -1,9 +1,9 @@
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
 
-
+from django.contrib.auth import logout
 from item.models import Category, Item
-
+from .forms import SignupForm
 import random
 
 
@@ -27,4 +27,24 @@ def category(request, category_id):
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
         'name_category' : category.name
+    })
+
+
+def log_out(request):
+    logout(request)
+    return redirect('/login/')
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('/login/')
+    else:
+        form = SignupForm()
+
+    return render(request, 'core/signup.html', {
+        'form': form
     })

@@ -18,7 +18,15 @@
                 text-decoration: none; /* Убрать подчеркивание */
                 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Тень */
             }
+
+            body {
+              font-family: Comfortaa;
+            }
         </style>
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 
         <script>
             window.onload = function() {
@@ -40,11 +48,35 @@
                 <symbol id="twitter" viewBox="0 0 16 16">
                   <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
                 </symbol>
-              </svg>
+            </svg>
 
-        <nav class="py-2 px-2 md:py-6 md:px-6 flex justify-between items-center border-b border-gray-200">
+        <nav class="py-2 px-2 flex justify-between items-center border-b border-gray-200">
             <a href="/" class="text-xl font-semibold">Магазин Одежды 💗</a>
+
+            
+            {% if request.user.is_authenticated %}
+            <a href="/" class="text-xl font-semibold">{{request.user.username}}</a>
+            {% endif %}
+
+            <div class="space-x-1">
+            
+              {% if request.user.is_authenticated %}
+                      <a href="{% url 'item:basket' %}" class="px-2 py-2 text-md font-semibold bg-green-500 text-white rounded-xl hover:bg-gray-700">🧺
+                        {% if request.user.is_authenticated %}
+                          {% if request.user.items.all|length != 0 %}
+                            {{request.user.items.all|length}}
+                          {%endif%}
+                        {% endif %}
+                      </a>
+                      <a href="{% url 'core:logout' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Logout</a>
+              {% else %}
+                      <a href="{% url 'core:signup' %}" class="px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+                      <a href="{% url 'core:login' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+              {% endif %}
+            </div>
         </nav>
+
+        
 
         <div class="px-2 wpy-2 md:py-6 md:px-6">
             {% block content %}
@@ -63,6 +95,6 @@
                 <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
               </ul>
             </footer>
-          </div>
+        </div>
     </body>
 </html>

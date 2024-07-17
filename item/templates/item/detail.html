@@ -18,7 +18,7 @@
                 <p class="text-sm">{{ item.description }} </p>
             </p>
         {% endif %}
-        <a href="https://t.me/OrigamiFenix" target="_blank" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl">Contact</a>
+        <a href="{% url 'item:add' item.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl">Add</a>
     </div>
 </div>
 

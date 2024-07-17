@@ -1,5 +1,6 @@
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 
 from .models import Category, Item
 
@@ -28,3 +29,21 @@ def items(request):
         'items': sorted(items, key=lambda x: random.random()),
         'name_category' : f'Вся одежда по 🔎 {query}' if query else 'Вся одежда 👕'
     })
+
+@login_required
+def add(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    request.user.items.add(item)
+    return redirect('item:detail', pk=pk)
+
+@login_required
+def basket(request):
+    return render(request, 'item/basket.html', {
+        'items': request.user.items.all()
+    })
+
+@login_required
+def remove(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    request.user.items.remove(item)
+    return redirect('item:basket')
