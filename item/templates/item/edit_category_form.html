@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl">{{ title }}</h1>
+<h1 class="mb-6 text-3xl mt-4">{{ title }}</h1>
 
 <form method="post" action="{% url 'item:edit_category' category.id %}" enctype="multipart/form-data">
     {% csrf_token %}

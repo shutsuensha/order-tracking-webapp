@@ -78,7 +78,7 @@ def items(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
-        'name_category' : f'Вся одежда по 🔎 {query}' if query else 'Вся одежда 👕',
+        'name_category' : f'{query}' if query else '🪦💀',
         'gender': gender,
         'query': query
     })

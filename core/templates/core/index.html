@@ -8,33 +8,24 @@
 
 {% block content %}
 
-<nav class="navbar flex fixed-bottom navbar-dark bg-dark">
+<nav class="navbar flex fixed-bottom bg-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand md:text-3xl" href="#">Категории🚀</a>
-          <li class="nav-item md:mb-3">
-            <a class="nav-link md:text-3xl text-white" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="#">top $$@@</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-4 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
                 {{request.user.items.all|length}}
         {%endif%}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link md:mb-3 md:text-3xl {% if gender == 'ALL' %} text-yellow-500 {%else%} text-white {%endif%}" href="{% url 'item:gender' 'ALL'%}">All {% if gender == 'ALL' %} ✔️ {%endif%}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link md:mb-3 md:text-3xl {% if gender == 'W' %} text-red-500 {%else%} text-white {%endif%}" href="{% url 'item:gender' 'W' %}">Woman {% if gender == 'W' %} ✔️ {%endif%}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link md:mb-3 md:text-3xl {% if gender == 'M' %} text-blue-500 {%else%} text-white {%endif%}" href="{% url 'item:gender' 'M' %}">Man {% if gender == 'M' %} ✔️ {%endif%}</a>
-          </li>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-4 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
     </div>
   </nav>
 
     <div class="mt-4 px-6 py-4 bg-gray-100 rounded-xl">
-        <h2 class="mb-4 text-3xl text-center font-semibold hover:text-violet-600"><a href="/"> Вся одежда 👕</a></h2>
+        <h2 class="mb-4 text-3xl text-center font-semibold hover:text-violet-600"><a href="/"> All stuff 🎃</a></h2>
 
         <form method="get" action="{% url 'item:items' %}">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary p-2 me-2" type="submit">Поиск🔍</button>
                   </div>
                 {%if query%}
                     <input name="query" type="text" class="form-control" autofocus value="{{query}}">
@@ -50,11 +41,11 @@
                 <div>
                     <a href="{% url 'core:category' category.id %}">
                         <div class="p-2 bg-white rounded-b-xl text-center">
-                            <h2 class="text-sm md:text-2xl font-semibold  hover:text-violet-600">{{ category.name }}</h2>
+                            <h2 class="text-xl md:text-2xl font-semibold  hover:text-violet-600">{{ category.name }}</h2>
                             <p class="text-gray-500 text-sm">{{ category.items.count }} items</p>
                             {% if request.user.is_superuser %}
-                                <a href="{% url 'item:remove_category' category.id %}" class="block mt-2 px-2 mx-1 py-2 text-sm md:text-lg font-semibold bg-red-500 text-white rounded-xl">Remove</a>
-                                <a href="{% url 'item:edit_category' category.id %}" class="block mt-2 px-2 py-2 mx-1 text-sm md:text-lg font-semibold bg-red-500 text-white rounded-xl">Edit</a>
+                                <a href="{% url 'item:remove_category' category.id %}" class="block mt-2 px-2 mx-1 py-2 text-sm md:text-lg font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Remove</a>
+                                <a href="{% url 'item:edit_category' category.id %}" class="block mt-2 px-2 py-2 mx-1 text-sm md:text-lg font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Edit</a>
                             {%endif%}
                         </div>
                     </a>
@@ -99,12 +90,11 @@
                         {% endif %}
                         <div class="md:p-6 p-2 bg-white rounded-b-xl">
                                 {% if item.gender == 'M'%}
-                                <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}
+                                <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}</h2>
                                 {% else %}
-                                <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}
+                                <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}</h2>
                                 {% endif %}
-                            </h2>
-                            <strong><p class="text-gray-500 text-sm md:text-3xl">{{ item.price }}$</p></strong>
+                            <strong><p class="text-md md:text-3xl font-semibold">{{ item.price }}$</p></strong>
                         </div>
                     </a>
                 </div>

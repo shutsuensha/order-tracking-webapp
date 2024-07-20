@@ -6,77 +6,63 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'core:index'%}" class="fixed-link inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-teal-500 text-white rounded-xl">Одежда 👕</a>
-<a href="{% url 'item:basket' %}" class="fixed-link2 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-lime-300 text-white rounded-xl">Корзина🧺
-    {% if request.user.items.all|length != 0 %}
-            {{request.user.items.all|length}}
-    {%endif%}
-</a>
-{% if gender == 'ALL' %}
-<a href="{% url 'item:gender_detail' 'ALL' item.id %}" class="fixed-link5 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-fuchsia-200 text-white rounded-xl">All✔️</a>
-{% else %}
-<a href="{% url 'item:gender_detail' 'ALL' item.id %}" class="fixed-link5 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-fuchsia-200 text-white rounded-xl">All</a>
-{% endif %}
-
-{% if gender == 'W' %}
-<a href="{% url 'item:gender_detail' 'W' item.id%}" class="fixed-link4 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-red-200 text-white rounded-xl">Woman✔️</a>
-{% else %}
-<a href="{% url 'item:gender_detail' 'W' item.id %}" class="fixed-link4 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-red-200 text-white rounded-xl">Woman</a>
-{% endif %}
-
-{% if gender == 'M' %}
-<a href="{% url 'item:gender_detail' 'M' item.id %}" class="fixed-link3 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-blue-200 text-white rounded-xl">Man✔️</a>
-{% else %}
-<a href="{% url 'item:gender_detail' 'M' item.id %}" class="fixed-link3 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-blue-200 text-white rounded-xl">Man</a>
-{% endif %}
-<div class="grid grid-cols-5 md:gap-6 gap-2">
-    <div class="col-span-3">
-        <img src="{{ item.image.url }}" class="rounded-xl">
+<nav class="navbar flex fixed-bottom bg-transparent">
+    <div class="container-fluid">
+      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'core:index'%}">top $$@@</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-4 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+                {{request.user.items.all|length}}
+        {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-4 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
     </div>
+  </nav>
 
-    <div class="col-span-2 px-2 py-4 lg:px-12 lg:py-24 bg-gray-100 rounded-xl">
-        <h1 class="md:mb-6 mb-4 text-xl md:text-3xl">{{ item.name }}</h1>
+<div class="grid grid-cols-2 gap-4 mt-4">
+        <img src="{{ item.image.url }}" class="rounded-xl">
+
+    <div class="px-2 py-4 bg-gray-100 rounded-xl">
+        <h1 class="mb-4 text-3xl">{{ item.name }}</h1>
         {% if item.gender == "W" %}
-        <p class="text-pink-400">
+        <p class="text-pink-400 text-lg md:text-2xl">
             <strong>Для девушек</strong><br>
         </p>
         {%endif%}
         {% if item.gender == "M" %}
-        <p class="text-blue-400">
+        <p class="text-blue-400 text-lg md:text-2xl">
             <strong>Для парней</strong><br>
         </p>
         {%endif%}
 
-        <p class="text-gray-500"><strong>Price: </strong>{{ item.price }}$</p>
+        <p class="text-lg md:text-2xl font-semibold"><strong>{{ item.price }}$</p></strong>
     
         {% if item.description %}
-            <p class="text-gray-700">
-                <strong class="text-gray-500 ">Description:</strong><br>
-                <p class="text-sm">{{ item.description }} </p>
+            <p class="text-md md:text-2xl">
+                {{ item.description }}
             </p>
         {% endif %}
         {% if not request.user.is_authenticated %}
-            <a href="{% url 'item:add' item.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl">Add</a>
+            <a href="{% url 'item:add' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-xl">Add</a>
         {% else %}
             {% if in_basket %}
-            <a href="{% url 'item:remove_detail' item.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+            <a href="{% url 'item:remove_detail' item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">Remove</a>
             {% else %}
-            <a href="{% url 'item:add' item.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl">Add</a>
+            <a href="{% url 'item:add' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500  hover:bg-blue-700 text-white rounded-xl">Add</a>
             {% endif %}
             {% if not request.user.is_superuser %}
-                <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact admin</a>
+                <a href="{% url 'conversation:new' item.id %}" class="block text-center mt-6 px-4 py-3 text-md font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact admin</a>
             {% endif %}
             {% if request.user.is_superuser %}
-                <a href="{% url 'item:remove_item' item.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl">Remove permanent</a>
-                <a href="{% url 'item:edit_item' item.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl">Edit</a>
+                <a href="{% url 'item:remove_item' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-md font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Remove permanent</a>
+                <a href="{% url 'item:edit_item' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Edit</a>
             {%endif%}
         {% if operation == "add" %}
-        <div class="alert alert-primary mt-4" id="id01" role="alert">
+        <div class="alert alert-primary mt-4 text-center" id="id01" role="alert">
             Добавлено
         </div>
         {%endif%}
         {% if operation == "remove" %}
-        <div class="alert alert-danger mt-4" id="id02" role="alert">
+        <div class="alert alert-danger mt-4 text-center" id="id02" role="alert">
             Удалено
         </div> 
         {%endif%}
@@ -84,7 +70,7 @@
     </div>
 </div>
 
-<h1 class="mb-6 text-3xl">Add comment</h1>
+<h1 class="mb-6 text-3xl mt-4">Add comment</h1>
 
 <form method="post" action="{% url 'item:new_comment'  item.id %}" enctype="multipart/form-data">
     {% csrf_token %}
@@ -103,11 +89,11 @@
         </div>
     {% endif %}
 
-    <button class="mt-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+    <button class="mt-6 w-full text-center py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
 </form>
 
 {% if item.comments.all %}
-<h1 class="mb-6 text-3xl">Comments</h1>
+<h1 class="mb-6 text-3xl mt-4">Comments</h1>
 <div class="space-y-6">
 {% for comment in item.comments.all %}
     {%if op %}
@@ -121,9 +107,9 @@
         <div>
             {{ comment.created_at }}
         {% if request.user == comment.user %}
-            <a href="{% url 'item:delete_comment'  comment.id item.id %}">| delete</a>
-            <a href="{% url 'item:edit_comment'  comment.id item.id %}">edit</a> <br>
-            {{comment.description}}
+            <a href="{% url 'item:delete_comment'  comment.id item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">delete</a>
+            <a href="{% url 'item:edit_comment'  comment.id item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">edit</a>
+            <p class="mt-4">{{comment.description}}</p>
             {% if pk_comment == comment.id %}
             <form method="post" action="{% url 'item:edit_comment' comment.id item.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -142,7 +128,7 @@
                     </div>
                 {% endif %}
             
-                <button class="mt-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+                <button class="mt-6 w-full text-center py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
             </form>
             {% endif %}
         {%endif%}
@@ -153,9 +139,9 @@
 {%endif%}
 
 <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl">
-    <h2 class="md:mb-12 mb-8 text-2xl text-center font-semibold">Похожая одежда</h2>
+    <h2 class="md:mb-12 mb-8 text-2xl text-center font-semibold">Related</h2>
 
-    <div class="grid grid-cols-3 gap-1">
+    <div class="grid grid-cols-3 gap-3">
         {% for item in related_items %}
             <div>
                 <a href="{% url 'item:detail' item.id %}">
@@ -164,11 +150,11 @@
                     {% endif %}
                     <div class="md:p-6 p-2 bg-white rounded-b-xl">
                         {% if item.gender == 'M'%}
-                                <h2 class="md:text-2xl text-sm text-blue-300">{{ item.name }}
+                                <h2 class="md:text-3xl text-sm text-blue-500 font-semibold">{{ item.name }}</h2>
                                 {% else %}
-                                <h2 class="md:text-2xl text-sm text-red-300">{{ item.name }}
+                                <h2 class="md:text-3xl text-sm text-red-500 font-semibold">{{ item.name }}</h2>
                         {% endif %}
-                        <p class="text-gray-500 text-sm"">Price: {{ item.price }}$</p>
+                        <p class="md:text-3xl text-sm font-semibold">{{ item.price }}$</p>
                     </div>
                 </a>
             </div>
