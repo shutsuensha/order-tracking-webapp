@@ -67,32 +67,6 @@
             body {
               font-family: Comfortaa;
             }
-
-            .google-button {
-                display: inline-block;
-                font-family: Roboto, Arial, sans-serif;
-                font-size: 14px;
-                font-weight: 500;
-                color: #ffffff;
-                text-align: center;
-                vertical-align: middle;
-                cursor: pointer;
-                background-color: #4285F4; /* Google blue */
-                border: none;
-                border-radius: 4px;
-                padding: 10px 20px;
-                text-decoration: none;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-                transition: background-color 0.2s;
-            }
-
-            .google-button:hover {
-                background-color: #357ae8; /* Darker blue for hover */
-            }
-
-            .google-button:active {
-                background-color: #3367d6; /* Even darker blue for active state */
-            }
         </style>
 
         <script>
@@ -123,37 +97,46 @@
             <div class="space-x-1">
             
               {% if request.user.is_authenticated %}
-              <a href="{% url 'conversation:inbox' %}" class="px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox {{ request.user.conversations.all | length }}</a>
-              <a href="{% url 'item:all_comments' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Comments {{ request.user.comments.all | length }}</a>
-              {{request.user.username}}
+              <strong>{{request.user.username}}</strong>
               <a href="{% url 'core:logout' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Logout</a>
-              {% else %}
-                      <a href="{% url 'social:begin' 'google-oauth2' %}" class="google-button">Login with Google</a>
-                      <a href="{% url 'core:signup' %}" class="px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
-                      <a href="{% url 'core:login' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
               {% endif %}
             </div>
           </nav>
-
+          {% if not request.user.is_authenticated %}
           <div class="grid grid-cols-3 gap-2 mt-2 px-2">
-            {% if request.user.is_superuser %}
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Login with Google</a>
+            <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+            <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+        </div>
+          {% endif %}
+
+          {% if request.user.is_authenticated %}
+          <div class="grid grid-cols-2 gap-2 mt-2 px-2">
+            <a href="{% url 'conversation:inbox' %}" class="text-center px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox {{ request.user.conversations.all | length }}</a>
+              <a href="{% url 'item:all_comments' %}" class="text-center px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Comments {{ request.user.comments.all | length }}</a>
+          </div>
+          {% endif %}
+
+          {% if request.user.is_superuser %}
+          <div class="grid grid-cols-3 gap-2 mt-2 px-2">
             <a href="{% url 'item:new_category' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New category</a>
             <a href="{% url 'item:new_item' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New item</a>
             <a href="{% url 'item:all_purchases' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">All purchases</a>
-            {%endif%}
-
           </div>
+          {%endif%}
+
+      
 
 
-        <div class="px-2 wpy-2 md:py-6 md:px-6">
+        <div class="px-2">
             {% block content %}
             {% endblock %}
         </div>
 
-        <div class="container-fluid md:mb-12">
+        <div class="container-fluid">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-              <div class="col-md-4 d-flex align-items-center">
-                <span class="mb-3 mb-md-0 text-body-secondary text-sm md-text-lg">&copy; Nyashki 2024 Company, Inc</span>
+              <div class="d-flex align-items-center">
+                <span class="mb-3 text-body-secondary text-sm">&copy; Nyashki 2024 Company, Inc</span>
               </div>
           
               <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
