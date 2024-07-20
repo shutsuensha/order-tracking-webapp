@@ -8,25 +8,23 @@
 
 {% block content %}
 
-<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar flex fixed-bottom navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand md:text-3xl" href="#">Категории🚀</a>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link md:text-3xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+          <li class="nav-item mb-3">
+            <a class="nav-link md:text-3xl text-white" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
                 {{request.user.items.all|length}}
         {%endif%}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link md:text-3xl {% if gender == 'ALL' %} text-yellow-500 {%endif%}" href="{% url 'item:gender' 'ALL'%}">All {% if gender == 'ALL' %} ✔️ {%endif%}</a>
+            <a class="nav-link mb-3 md:text-3xl {% if gender == 'ALL' %} text-yellow-500 {%else%} text-white {%endif%}" href="{% url 'item:gender' 'ALL'%}">All {% if gender == 'ALL' %} ✔️ {%endif%}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link md:text-3xl {% if gender == 'W' %} text-red-500 {%endif%}" href="{% url 'item:gender' 'W' %}">Woman {% if gender == 'W' %} ✔️ {%endif%}</a>
+            <a class="nav-link mb-3 md:text-3xl {% if gender == 'W' %} text-red-500 {%else%} text-white {%endif%}" href="{% url 'item:gender' 'W' %}">Woman {% if gender == 'W' %} ✔️ {%endif%}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link md:text-3xl {% if gender == 'M' %} text-blue-500 {%endif%}" href="{% url 'item:gender' 'M' %}">Man {% if gender == 'M' %} ✔️ {%endif%}</a>
+            <a class="nav-link mb-3 md:text-3xl {% if gender == 'M' %} text-blue-500 {%else%} text-white {%endif%}" href="{% url 'item:gender' 'M' %}">Man {% if gender == 'M' %} ✔️ {%endif%}</a>
           </li>
-        </ul>
     </div>
   </nav>
 
