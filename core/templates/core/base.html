@@ -104,7 +104,7 @@
           </nav>
           {% if not request.user.is_authenticated %}
           <div class="grid grid-cols-3 gap-2 mt-2 px-2">
-            <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Login with Google</a>
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Google</a>
             <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
             <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
         </div>

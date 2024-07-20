@@ -11,12 +11,14 @@
             {%for purchase in purchases %}
             <div class="rounded-xl">
                 <hr class="mt-4">
-                <p class="text-gray-500 text-lg">username: {{ purchase.user.username }}</p>
-                <p class="text-gray-500 text-lg">email: {{ purchase.user.email }}</p>
-                <p class="text-gray-500 text-lg">Total: {{ purchase.price }}$</p>
-                <p class="text-gray-500 text-lg">telegram: {{ purchase.telegram }}</p>
-                <p class="text-gray-500 text-lg">date: {{ purchase.created_at }}</p>
-                <a href="{% url 'item:purchase_delete' purchase.id %}" class="block mt-2 mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                <div class="w-1/2 mx-auto text-center">
+                    <p class="text-gray-500 text-lg"><strong>username: </strong>{{ purchase.user.username }}</p>
+                    <p class="text-gray-500 text-lg"><strong>email: </strong> {{ purchase.user.email }}</p>
+                    <p class="text-gray-500 text-lg"><strong>Total: </strong>{{ purchase.price }}$</p>
+                    <p class="text-gray-500 text-lg"><strong>telegram: </strong> {{ purchase.telegram }}</p>
+                    <p class="text-gray-500 text-lg"><strong>date: </strong> {{ purchase.created_at }}</p>
+                    <a href="{% url 'item:purchase_delete' purchase.id %}" class="block text-center mt-2 mb-2 x-2 py-2 text-xl font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                </div>
                     <div class="grid grid-cols-3 gap-1">
                         {% if purchase.items.all %}
                             {% for item in purchase.items.all %}
