@@ -8,13 +8,13 @@
 {% block content %}
 <nav class="navbar flex fixed-bottom bg-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'core:index'%}">top $$@@</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-4 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'core:index'%}">top $$@@</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
                 {{request.user.items.all|length}}
         {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-4 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-md font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
     </div>
   </nav>
 

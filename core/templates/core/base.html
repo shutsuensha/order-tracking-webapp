@@ -36,13 +36,13 @@
         <body>
 
         <nav class="py-2 px-2 flex justify-between items-center">
-            <a href="/" class="md:text-3xl text-lg font-semibold">Nyashki 2024 Company, Inc 💀</a>
+            <a href="/" class="md:text-3xl text-sm font-semibold">Nyashki 2024 Company, Inc 💀</a>
 
             <div class="space-x-1">
             
               {% if request.user.is_authenticated %}
-              <strong class="md:text-3xl text-lg font-semibold">{{request.user.username}}</strong>
-              <a href="{% url 'core:logout' %}" class="px-2 py-2 md:text-2xl text-lg font-semibold bg-orange-400 text-white rounded-xl hover:bg-orange-600">Logout</a>
+              <strong class="md:text-3xl text-sm font-semibold">{{request.user.username}}</strong>
+              <a href="{% url 'core:logout' %}" class="px-2 py-2 md:text-2xl text-sm font-semibold bg-orange-400 text-white rounded-xl hover:bg-orange-600">Logout</a>
               {% endif %}
             </div>
           </nav>
