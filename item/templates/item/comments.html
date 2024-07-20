@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Comments{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-6 text-3xl">Comments</h1>
+
+<div class="space-y-6">
+    {% for item in items %}
+        <a href="{% url 'item:detail' item.id %}">
+            <div class="p-6 flex bg-gray-100 rounded-xl">
+                <div class="pr-6">
+                    <img src="{{ item.image.url }}" class="w-20 rounded-xl">
+                </div>
+
+                <div>
+                    {% if item.gender == 'M'%}
+                        <h2 class="md:text-2xl text-sm text-blue-300">{{ item.name }}
+                        {% else %}
+                        <h2 class="md:text-2xl text-sm text-red-300">{{ item.name }}
+                        {% endif %}
+                        <p class="text-gray-500 text-sm">{{ item.price }}$</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{%endblock%}

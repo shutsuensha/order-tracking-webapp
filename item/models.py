@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+gender_choice = {
+    "M": "Man",
+    "W": "Woman",
+}
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
@@ -10,6 +15,15 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Comment(models.Model):
+    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    description = models.TextField()
+    created_at = models.DateTimeField()
+
+    class Meta:
+        ordering = ('-created_at',)
+    
 
 class Item(models.Model):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
@@ -19,8 +33,17 @@ class Item(models.Model):
     image = models.ImageField(upload_to='item_images', blank=True, null=True)
     is_sold = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    users = models.ManyToManyField(User, related_name='items')
-    
+    users = models.ManyToManyField(User, related_name='items', blank=True)
+    gender = models.CharField(max_length=1, choices=gender_choice)
+    comments = models.ManyToManyField(Comment)
+
     def __str__(self):
         return self.name
-    
+
+
+class Purchase(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Item)
+    telegram = models.CharField(max_length=255)
+    price = models.FloatField()           

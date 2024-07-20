@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ all }}{% endblock %}
+
+{% block content %}
+<div>
+
+    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl" id="target-element">
+        <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold">All purchases</h2>
+        {%if purchases %}
+            {%for purchase in purchases %}
+            <div class="rounded-xl">
+                <hr class="mt-4">
+                <p class="text-gray-500 text-lg">username: {{ purchase.user.username }}</p>
+                <p class="text-gray-500 text-lg">email: {{ purchase.user.email }}</p>
+                <p class="text-gray-500 text-lg">Total: {{ purchase.price }}$</p>
+                <p class="text-gray-500 text-lg">telegram: {{ purchase.telegram }}</p>
+                <p class="text-gray-500 text-lg">date: {{ purchase.created_at }}</p>
+                <a href="{% url 'item:purchase_delete' purchase.id %}" class="block mt-2 mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                    <div class="grid grid-cols-3 gap-1">
+                        {% if purchase.items.all %}
+                            {% for item in purchase.items.all %}
+                                <div>
+                                    <a href="{% url 'item:detail' item.id %}">
+                                    {% if item.image.url %}
+                                        <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                    {% endif %}
+                                    
+                                        <div class="md:p-6 p-2 bg-white rounded-b-xl">
+                                            <p class="text-gray-500 text-sm">{{ item.price }}$</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+            </div>
+            {%endfor%}
+        {%else%}
+            Нету заказов
+        {%endif%}
+
+</div>
+
+{% endblock %}

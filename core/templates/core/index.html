@@ -2,47 +2,111 @@
 
 {% block title %}Одежда 👕{% endblock %}
 
+{% block static %}
+<link rel="stylesheet" href="static/core/css/mdb.min.css" />
+{% endblock %}
+
 {% block content %}
-    <a href="#" class="fixed-link inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-teal-500 text-white rounded-xl">Категории🚀</a>
+<a href="#" class="fixed-link inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-teal-500 text-white rounded-xl">Категории🚀</a>
+<a href="{% url 'item:basket' %}" class="fixed-link2 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-lime-300 text-white rounded-xl">Корзина🧺
+    {% if request.user.items.all|length != 0 %}
+            {{request.user.items.all|length}}
+    {%endif%}
+</a>
+{% if gender == 'ALL' %}
+<a href="{% url 'item:gender' 'ALL'%}" class="fixed-link5 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-fuchsia-200 text-white rounded-xl">All✔️</a>
+{% else %}
+<a href="{% url 'item:gender' 'ALL' %}" class="fixed-link5 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-fuchsia-200 text-white rounded-xl">All</a>
+{% endif %}
+
+{% if gender == 'W' %}
+<a href="{% url 'item:gender' 'W' %}" class="fixed-link4 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-red-200 text-white rounded-xl">Woman✔️</a>
+{% else %}
+<a href="{% url 'item:gender' 'W' %}" class="fixed-link4 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-red-200 text-white rounded-xl">Woman</a>
+{% endif %}
+
+{% if gender == 'M' %}
+<a href="{% url 'item:gender' 'M' %}" class="fixed-link3 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-blue-200 text-white rounded-xl">Man✔️</a>
+{% else %}
+<a href="{% url 'item:gender' 'M' %}" class="fixed-link3 inline-block md:mt-6 md:px-6 md:py-3 py-2 px-4 md:text-lg text-md font-semibold bg-blue-200 text-white rounded-xl">Man</a>
+{% endif %}
+
     <div class="md:mt-6 mt-4 px-6 md:py-12 py-4 bg-gray-100 rounded-xl">
-        <h2 class="md:mb-12 mb-8 text-2xl text-center font-semibold ">⭐Категории⭐</h2>
+        <h2 class="md:mb-12 mb-4 text-2xl text-center font-semibold hover:text-violet-600 hover:text-3xl"><a href="/"> Вся одежда 👕</a></h2>
 
         <form method="get" action="{% url 'item:items' %}">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="submit">Поиск🔍</button>
+                    <button class="btn btn-outline-secondary p-2 me-2" type="submit">Поиск🔍</button>
                   </div>
-                <input name="query" type="text" class="form-control" autofocus>
+                {%if query%}
+                    <input name="query" type="text" class="form-control" autofocus value="{{query}}">
+                {%else%}
+                    <input name="query" type="text" class="form-control" autofocus>
+                {%endif%}
               </div>
         </form>
+    
 
         <div class="grid grid-cols-3 gap-3">
             {% for category in categories %}
                 <div>
                     <a href="{% url 'core:category' category.id %}">
                         <div class="md:p-6 p-4 bg-white rounded-b-xl">
-                            <h2 class="md:text-2xl text-md font-semibold ">{{ category.name }}</h2>
+                            <h2 class="md:text-2xl text-md font-semibold  hover:text-violet-600 hover:text-3xl">{{ category.name }}</h2>
                             <p class="text-gray-500 text-sm">{{ category.items.count }} items</p>
+                            {% if request.user.is_superuser %}
+                                <a href="{% url 'item:remove_category' category.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                                <a href="{% url 'item:edit_category' category.id %}" class="inline-block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl">Edit</a>
+                            {%endif%}
                         </div>
                     </a>
                 </div>
             {% endfor %}
         </div>
     </div>
-    
 
     <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl" id="target-element">
-        <h2 class="md:mb-12 mb-8 text-2xl text-center font-semibold">{{ name_category }}</h2>
+        <h2 class="md:mb-12 mb-4 text-2xl text-center font-semibold">{{ name_category }}</h2>
 
         <div class="grid grid-cols-3 gap-1">
             {% for item in items %}
                 <div>
                     <a href="{% url 'item:detail' item.id %}">
-                        <div>
-                            <img src="{{ item.image.url }}" class="rounded-t-xl">
-                        </div>
+                        {% if item.gender == 'W'%}
+                            {% if item.image.url %}
+                            <div class="bg-image hover-overlay hover-zoom ">
+                                <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                <div class="mask" style="
+                                    background: linear-gradient(
+                                        45deg,
+                                        hsla(349, 94%, 58%, 0.34),
+                                        hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                    );
+                                "></div>
+                            </div>
+                            {% endif %}
+                        {% else %}
+                            {% if item.image.url %}
+                            <div class="bg-image hover-overlay hover-zoom">
+                                <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                <div class="mask" style="
+                                    background: linear-gradient(
+                                        45deg,
+                                        hsla(217, 89%, 51%, 0.5),
+                                        hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                    );
+                                "></div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
                         <div class="md:p-6 p-2 bg-white rounded-b-xl">
-                            <h2 class="md:text-2xl text-sm">{{ item.name }}</h2>
+                                {% if item.gender == 'M'%}
+                                <h2 class="md:text-2xl text-sm text-blue-300">{{ item.name }}
+                                {% else %}
+                                <h2 class="md:text-2xl text-sm text-red-300">{{ item.name }}
+                                {% endif %}
+                            </h2>
                             <p class="text-gray-500 text-sm">{{ item.price }}$</p>
                         </div>
                     </a>
