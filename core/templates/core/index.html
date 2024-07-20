@@ -56,8 +56,8 @@
                             <h2 class="text-sm md:text-2xl font-semibold  hover:text-violet-600">{{ category.name }}</h2>
                             <p class="text-gray-500 text-sm">{{ category.items.count }} items</p>
                             {% if request.user.is_superuser %}
-                                <a href="{% url 'item:remove_category' category.id %}" class="inline-block mt-2 px-4 py-2 text-sm md:text-lg font-semibold bg-red-500 text-white rounded-xl">Remove</a>
-                                <a href="{% url 'item:edit_category' category.id %}" class="inline-block mt-2 px-4 py-2 text-sm md:text-lg font-semibold bg-red-500 text-white rounded-xl">Edit</a>
+                                <a href="{% url 'item:remove_category' category.id %}" class="block mt-2 px-2 mx-1 py-2 text-sm md:text-lg font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                                <a href="{% url 'item:edit_category' category.id %}" class="block mt-2 px-2 py-2 mx-1 text-sm md:text-lg font-semibold bg-red-500 text-white rounded-xl">Edit</a>
                             {%endif%}
                         </div>
                     </a>
