@@ -5,18 +5,18 @@
 {% block content %}
 <div>
 
-    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl" id="target-element">
+    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-white" id="target-element">
         <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold">All purchases</h2>
         {%if purchases %}
             {%for purchase in purchases %}
             <div class="rounded-xl">
                 <hr class="mt-4">
                 <div class="w-1/2 mx-auto text-center">
-                    <p class="text-gray-500 text-lg"><strong>username: </strong>{{ purchase.user.username }}</p>
-                    <p class="text-gray-500 text-lg"><strong>email: </strong> {{ purchase.user.email }}</p>
-                    <p class="text-gray-500 text-lg"><strong>Total: </strong>{{ purchase.price }}$</p>
-                    <p class="text-gray-500 text-lg"><strong>telegram: </strong> {{ purchase.telegram }}</p>
-                    <p class="text-gray-500 text-lg"><strong>date: </strong> {{ purchase.created_at }}</p>
+                    <p class="text-gray-500 dark:text-white text-lg"><strong>username: </strong>{{ purchase.user.username }}</p>
+                    <p class="text-gray-500 dark:text-white text-lg"><strong>email: </strong> {{ purchase.user.email }}</p>
+                    <p class="text-gray-500 dark:text-white text-lg"><strong>Total: </strong>{{ purchase.price }}$</p>
+                    <p class="text-gray-500 dark:text-white text-lg"><strong>telegram: </strong> {{ purchase.telegram }}</p>
+                    <p class="text-gray-500 dark:text-white text-lg"><strong>date: </strong> {{ purchase.created_at }}</p>
                     <a href="{% url 'item:purchase_delete' purchase.id %}" class="block text-center mt-2 mb-2 x-2 py-2 text-xl font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Remove</a>
                 </div>
                     <div class="grid grid-cols-3 gap-3">

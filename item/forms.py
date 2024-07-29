@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Item, Category, Comment
 
-INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
+INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border dark:bg-zinc-700 dark:text-white'
 
 class NewCategoryForm(forms.ModelForm):
     class Meta:

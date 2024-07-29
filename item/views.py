@@ -17,7 +17,7 @@ from .forms import NewItemForm, NewCategoryForm, EditItemForm, EditCategoryForm,
 
 
 
-def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=None, op=None):
+def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=None, op=None, js_op=None):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)
 
@@ -49,7 +49,8 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'form': form,
             'edit_form': form_edit,
             'pk_comment': pk_comment,
-            'op': op
+            'op': op,
+            'js_op': js_op
         })
 
     return render(request, 'item/detail.html', {
@@ -87,7 +88,7 @@ def items(request):
 def add(request, pk):
     item = get_object_or_404(Item, pk=pk)
     request.user.items.add(item)
-    return detail(request, pk=pk, operation="add")
+    return detail(request, pk=pk, operation="add", js_op='fgkjsdflkgjdkslfg')
 
 @login_required
 def basket(request, message=None):
@@ -122,7 +123,7 @@ def remove(request, pk):
 def remove_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     request.user.items.remove(item)
-    return detail(request, pk=pk, operation="remove")
+    return detail(request, pk=pk, operation="remove", js_op='fgkjsdflkgjdkslfg')
 
 
 def gender_f(request, gender):

@@ -7,12 +7,12 @@
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+      <div class="modal-content dark:bg-zinc-500">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Покупка </h1>
+          <h1 class="modal-title fs-5 dark:text-white" id="exampleModalLabel">Покупка </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body dark:bg-zinc-500">
             <div class="w-5/6 my-2 mx-auto p-2 bg-gray-100 rounded-xl">
                 <h1 class="mb-2 text-3xl">Enter your telegram</h1>
             
@@ -31,20 +31,24 @@
     </div>
   </div>
 
+  
+
   <nav class="navbar flex fixed-bottom bg-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'core:index'%}">top $$@@</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700 rounded-xl"  href="{% url 'core:index'%}">top $$@@</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-white bg-red-500 hover:bg-red-700 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
                 {{request.user.items.all|length}}
         {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-100 rounded-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
-    </div>
+        <ul>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700 rounded-s-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
+            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700 rounded-e-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
+            </ul>
+        </div>
   </nav>
 <div class="grid grid-cols-2 gap-3">
-    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl" id="target-element">
-        <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold">Корзина🧺
+    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500">
+        <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold dark:text-white">Корзина🧺
             {% if request.user.items.all|length != 0 %}
                 {{request.user.items.all|length}}
             {%endif%}
@@ -64,50 +68,98 @@
         <div class="grid grid-cols-1 gap-3 mt-4">
             {% if items %}
                 {% for item in items %}
-                    <div>
-                        <a href="{% url 'item:detail' item.id %}">
-                        {% if item.image.url %}
-                            <img src="{{ item.image.url }}" class="rounded-t-xl">
-                        {% endif %}
-                        
-                            <div class="md:p-6 p-2 bg-white rounded-b-xl">
-                                {% if item.gender == 'M'%}
-                                <h2 class="md:text-2xl text-sm text-blue-500 font-semibold">{{ item.name }}</h2>
-                                {% else %}
-                                <h2 class="md:text-2xl text-sm text-red-500 font-semibold">{{ item.name }}</h2>
-                                {% endif %}
-                                <p class="md:text-2xl text-sm">{{ item.price }}$</p>
-                                <a href="{% url 'item:remove' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                <div>
+                    <a href="{% url 'item:detail' item.id %}">
+                        {% if item.gender == 'W'%}
+                            {% if item.image.url %}
+                            <div class="bg-image hover-overlay hover-zoom ">
+                                <img src="{{ item.image.url }}" class="rounded-t-xl object-contain w-full">
+                                <div class="mask" style="
+                                    background: linear-gradient(
+                                        45deg,
+                                        hsla(349, 94%, 58%, 0.34),
+                                        hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                    );
+                                "></div>
                             </div>
-                        </a>
-                    </div>
+                            {% endif %}
+                        {% else %}
+                            {% if item.image.url %}
+                            <div class="bg-image hover-overlay hover-zoom ">
+                                <img src="{{ item.image.url }}" class="rounded-t-xl object-contain w-full">
+                                <div class="mask" style="
+                                    background: linear-gradient(
+                                        45deg,
+                                        hsla(217, 89%, 51%, 0.5),
+                                        hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                    );
+                                "></div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                        <div class="md:p-6 p-2 bg-white rounded-b-xl">
+                            {% if item.gender == 'M'%}
+                            <h2 class="md:text-2xl text-sm text-blue-500 font-semibold">{{ item.name }}</h2>
+                            {% else %}
+                            <h2 class="md:text-2xl text-sm text-red-500 font-semibold">{{ item.name }}</h2>
+                            {% endif %}
+                            <p class="md:text-2xl text-sm">{{ item.price }}$</p>
+                            <a href="{% url 'item:remove' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 hover:bg-red-700 text-white rounded-xl">Remove</a>
+                        </div>
+                    </a>
+                </div>
+                    
                 {% endfor %}
             {% endif %}
         </div>
     </div>
-    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl" id="target-element">
-        <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold">Orders 💀</h2>
+            </ul>
+    <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500">
+        <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold dark:text-white">Orders 💀</h2>
         {%if purchases %}
             {%for purchase in purchases %}
             <div class="rounded-xl">
-                <hr class="mt-4">
-                <p class="text-lg md:text-3xl">Total: {{ purchase.price }}$</p>
-                <p class="text-lg md:text-3xl">telegram: {{ purchase.telegram }}</p>
-                <a href="{% url 'item:purchase_delete' purchase.id %}" class="block text-center mt-2 mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                <hr class="mt-4 dark:text-white">
+                <p class="text-lg md:text-3xl dark:text-white">Total: {{ purchase.price }}$</p>
+                <p class="text-lg md:text-3xl dark:text-white">telegram: {{ purchase.telegram }}</p>
+                <a href="{% url 'item:purchase_delete' purchase.id %}" class="block text-center mt-2 mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 hover:bg-red-700 text-white rounded-xl">Remove</a>
                     <div class="grid grid-cols-2 gap-3">
                         {% if purchase.items.all %}
                             {% for item in purchase.items.all %}
-                                <div>
-                                    <a href="{% url 'item:detail' item.id %}">
-                                    {% if item.image.url %}
-                                        <img src="{{ item.image.url }}" class="rounded-t-xl">
-                                    {% endif %}
-                                    
-                                        <div class="md:p-6 p-2 bg-white rounded-b-xl">
-                                            <p class="md:text-3xl text-md font-semibold">{{ item.price }}$</p>
+                            <div>
+                                <a href="{% url 'item:detail' item.id %}">
+                                    {% if item.gender == 'W'%}
+                                        {% if item.image.url %}
+                                        <div class="bg-image hover-overlay hover-zoom ">
+                                            <img src="{{ item.image.url }}" class="rounded-t-xl object-contain w-full">
+                                            <div class="mask" style="
+                                                background: linear-gradient(
+                                                    45deg,
+                                                    hsla(349, 94%, 58%, 0.34),
+                                                    hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                                );
+                                            "></div>
                                         </div>
-                                    </a>
-                                </div>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if item.image.url %}
+                                        <div class="bg-image hover-overlay hover-zoom ">
+                                            <img src="{{ item.image.url }}" class="rounded-t-xl object-contain w-full">
+                                            <div class="mask" style="
+                                                background: linear-gradient(
+                                                    45deg,
+                                                    hsla(217, 89%, 51%, 0.5),
+                                                    hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                                );
+                                            "></div>
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    <div class="md:p-6 p-2 bg-white rounded-b-xl">
+                                        <p class="md:text-3xl text-md font-semibold">{{ item.price }}$</p>
+                                    </div>
+                                </a>
+                            </div>
                             {% endfor %}
                         {% endif %}
                     </div>
