@@ -47,12 +47,23 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'social_django',
-    'corsheaders'
 ]
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_auth_pipeline.associate_by_email',  # Ваш пользовательский пайплайн
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
 )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com'
@@ -75,7 +86,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'store.urls'
 
