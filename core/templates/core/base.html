@@ -26,11 +26,7 @@
 
         
 
-        <title>{% block title %}{% endblock %}</title>]
-
-      
-        <script src="{% static 'core/js/main.js' %}"></script>
-
+        <title>{% block title %}{% endblock %}</title>
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script>
             window.onload = function () {
@@ -44,8 +40,8 @@
                 } catch(err) {
                     console.log('error')
                 }
-                
-                if ('{{request.user.is_authenticated}}' ===  'False') {
+                console.log('{{show_login}}')
+                if ('{{request.user.is_authenticated}}' ===  'False' && '{{show_login}}' === 'True') {
                   google.accounts.id.initialize({
                       client_id: "155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com",
                       callback: handleCredentialResponse
@@ -75,12 +71,10 @@
                     console.error('Error:', error);
                 });
             }
-        </script>
-
+      </script>
     </head>
 
     <body class="dark:bg-zinc-700">
-
         <nav class="py-2 px-2 flex justify-between items-center dark:text-white">
             <a href="/" class="md:text-3xl text-sm font-semibold">Nyashki 2024 Company, Inc 💀</a>
 

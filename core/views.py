@@ -76,7 +76,8 @@ def index(request):
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
         'name_category' : '🪦💀',
-        'gender': gender
+        'gender': gender,
+        'show_login': True
     })
 
 
@@ -125,5 +126,6 @@ def signup(request):
         form = SignupForm()
 
     return render(request, 'core/signup.html', {
-        'form': form
+        'form': form,
+        'show_login': True
     })

@@ -60,6 +60,10 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SITE_ID = 1
 
+SOCIAL_AUTH_PIPELINE = (
+    '{BASE_DIR}.social_auth_pipeline.associate_by_email',
+)
+
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
