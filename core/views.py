@@ -113,15 +113,19 @@ def signup(request):
         form = SignupForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            email = form.cleaned_data['email']
+            if User.objects.filter(email=email).exists():
+                form.add_error('email', 'email already exists')
+            else:
+                form.save()
 
-            subject = 'Nyashki store'
-            message = f'Спасибо за регистрацию'
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [form['email'].value()]
-            send_mail( subject, message, email_from, recipient_list )
+                subject = 'Nyashki store'
+                message = 'Спасибо за регистрацию'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [email]
+                send_mail(subject, message, email_from, recipient_list)
 
-            return redirect('/login/')
+                return redirect('/login/')
     else:
         form = SignupForm()
 
