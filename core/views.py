@@ -20,26 +20,32 @@ import json
 @psa('social:complete')
 def google_one_tap_login(request, backend):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        token = data.get('credential')
-
         try:
-            # Проверка токена
-            idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY)
-            email = idinfo['email']
-        except ValueError:
-            # Невалидный токен
-            return JsonResponse({'success': False}, status=400)
+            data = json.loads(request.body)
+            token = data.get('credential')
+            if not token:
+                return JsonResponse({'success': False, 'error': 'No credential provided'}, status=400)
 
-        # Аутентификация пользователя через PSA
-        user = request.backend.do_auth(token)
-        if user:
-            login(request, user)
-            return JsonResponse({'success': True, 'redirect_url': settings.LOGIN_REDIRECT_URL})
-        else:
-            return JsonResponse({'success': False}, status=401)
+            # Verify the token
+            try:
+                idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY)
+                if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+                    return JsonResponse({'success': False, 'error': 'Wrong issuer.'}, status=401)
+                email = idinfo['email']
+            except ValueError as e:
+                return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+            # Authenticate the user via PSA
+            user = request.backend.do_auth(token)
+            if user:
+                login(request, user)
+                return JsonResponse({'success': True, 'redirect_url': settings.LOGIN_REDIRECT_URL})
+            else:
+                return JsonResponse({'success': False, 'error': 'Authentication failed.'}, status=401)
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
     else:
-        return JsonResponse({'success': False}, status=405)
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=405)
 
 
 def index(request):
