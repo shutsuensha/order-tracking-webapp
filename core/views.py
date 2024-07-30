@@ -46,7 +46,7 @@ def google_one_tap_login(request):
                 })
 
                 # Log the user in with specified backend
-                user.backend = 'django.contrib.auth.backends.ModelBackend'  # Замените на правильный backend
+                user.backend = 'social_core.backends.google.GoogleOAuth2',  # Замените на правильный backend
                 login(request, user)
                 return JsonResponse({'success': True, 'redirect_url': settings.LOGIN_REDIRECT_URL})
 
