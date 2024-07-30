@@ -36,9 +36,10 @@ def google_one_tap_login(request):
                 email = idinfo['email']
                 first_name = idinfo.get('given_name', '')
                 last_name = idinfo.get('family_name', '')
+                username  = idinfo.get('username', '')
 
                 # Find or create a user
-                user, created = User.objects.get_or_create(email=email, defaults={
+                user, created = User.objects.get_or_create(email=email, username=username, defaults={
                     'first_name': first_name,
                     'last_name': last_name,
                 })
