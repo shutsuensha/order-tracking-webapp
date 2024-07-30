@@ -43,7 +43,7 @@ def google_one_tap_login(request):
             else:
                 return JsonResponse({'success': False, 'error': 'Authentication failed.'}, status=401)
         except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+            return JsonResponse({'success': False, 'error': 'asdafawfawfawf'}, status=500)
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=405)
 
