@@ -31,36 +31,38 @@
       
         <script src="{% static 'core/js/main.js' %}"></script>
 
-            <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-        function handleCredentialResponse(response) {
-            console.log("Encoded JWT ID token: " + response.credential);
-            // Отправляем токен на сервер
-            fetch('/google_one_tap_login/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'  // CSRF защита
-                },
-                body: JSON.stringify({ credential: response.credential })
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      window.location.href = data.redirect_url;
-                  } else {
-                      console.error('Authentication asdadwfawfawf123');
-                  }
-              });
-        }
-
-        window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: "155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-            google.accounts.id.prompt(); // Показывает диалог One Tap
-        }
-    </script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script>
+            window.onload = function () {
+                google.accounts.id.initialize({
+                    client_id: "155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com",
+                    callback: handleCredentialResponse
+                });
+                google.accounts.id.prompt(); // Показывает диалог One Tap
+            };
+        
+            function handleCredentialResponse(response) {
+                fetch("/google_one_tap_login/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify({credential: response.credential})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect_url;
+                    } else {
+                        console.error('Error:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        </script>
 
     </head>
 

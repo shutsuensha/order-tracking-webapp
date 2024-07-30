@@ -12,13 +12,14 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.conf import settings
-from social_django.utils import psa
+from django.contrib.auth import get_user_model, login
 from google.oauth2 import id_token
 from google.auth.transport import requests
 import json
 
-@psa('social:complete')
-def google_one_tap_login(request, backend):
+User = get_user_model()
+
+def google_one_tap_login(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -28,20 +29,27 @@ def google_one_tap_login(request, backend):
 
             # Verify the token
             try:
-                idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY)
+                idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.GOOGLE_CLIENT_ID)
                 if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
                     return JsonResponse({'success': False, 'error': 'Wrong issuer.'}, status=401)
+                
                 email = idinfo['email']
+                first_name = idinfo.get('given_name', '')
+                last_name = idinfo.get('family_name', '')
+
+                # Find or create a user
+                user, created = User.objects.get_or_create(email=email, defaults={
+                    'first_name': first_name,
+                    'last_name': last_name,
+                })
+
+                # Log the user in
+                login(request, user)
+                return JsonResponse({'success': True, 'redirect_url': settings.LOGIN_REDIRECT_URL})
+
             except ValueError as e:
                 return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
-            # Authenticate the user via PSA
-            user = request.backend.do_auth(token)
-            if user:
-                login(request, user)
-                return JsonResponse({'success': True, 'redirect_url': settings.LOGIN_REDIRECT_URL})
-            else:
-                return JsonResponse({'success': False, 'error': 'Authentication failed.'}, status=401)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=500)
     else:
