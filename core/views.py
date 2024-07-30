@@ -18,7 +18,7 @@ from google.auth.transport import requests
 import json
 
 
-def google_one_tap_login(request):
+def google_one_tap_login(request, backend):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
