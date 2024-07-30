@@ -178,7 +178,7 @@
                 {% if item.gender == 'W'%}
                     {% if item.image.url %}
                     <div class="bg-image hover-overlay hover-zoom ">
-                        <img src="{{ item.image.url }}" class="rounded-t-xl">
+                        <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
                         <div class="mask" style="
                             background: linear-gradient(
                                 45deg,
@@ -191,7 +191,7 @@
                 {% else %}
                     {% if item.image.url %}
                     <div class="bg-image hover-overlay hover-zoom">
-                        <img src="{{ item.image.url }}" class="rounded-t-xl">
+                        <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
                         <div class="mask" style="
                             background: linear-gradient(
                                 45deg,
