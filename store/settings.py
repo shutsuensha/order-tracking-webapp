@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'social_django',
+    'corsheaders'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -83,10 +84,10 @@ SOCIAL_AUTH_PIPELINE = (
 
     # Associates the current social details with another user account with
     # a similar email address. Disabled by default.
-    #'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.social_auth.associate_by_email',
 
     # Create a user account if we haven't found one yet.
-    #'social_core.pipeline.user.create_user',
+    'social_core.pipeline.user.create_user',
 
     # Create the record that associates the social account with the user.
     'social_core.pipeline.social_auth.associate_user',
@@ -99,12 +100,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
-
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SITE_ID = 1
-
 
 
 MIDDLEWARE = [
@@ -117,8 +116,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'store.urls'
 
