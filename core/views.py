@@ -29,7 +29,7 @@ def google_one_tap_login(request):
 
             # Verify the token
             try:
-                idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.GOOGLE_CLIENT_ID)
+                idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY)
                 if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
                     return JsonResponse({'success': False, 'error': 'Wrong issuer.'}, status=401)
                 
