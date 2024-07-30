@@ -1,5 +1,6 @@
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 
 from django.contrib.auth import logout, login
 from item.models import Category, Item
