@@ -9,4 +9,9 @@ window.onload = function() {
     } catch(err) {
         console.log('error')
     }
+
+    //https://shutsuensha.pythonanywhere.com/oauth/complete/google/
+    //https://shutsuensha.pythonanywhere.com/oauth/authorize/google-oauth2/
+    //https://shutsuensha.pythonanywhere.com/oauth/complete/google-oauth2/
+
 }
