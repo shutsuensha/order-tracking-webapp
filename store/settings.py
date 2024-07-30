@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'social_django',
+    'corsheaders'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -68,8 +69,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware'
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'store.urls'
 
