@@ -34,6 +34,17 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script>
             window.onload = function () {
+              try {
+                    document.getElementById('target-element').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('error')
+                }
+                try {
+                    document.getElementById('comments').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('error')
+                }
+                
                 if ('{{request.user.is_authenticated}}' ===  'False') {
                   google.accounts.id.initialize({
                       client_id: "155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com",
