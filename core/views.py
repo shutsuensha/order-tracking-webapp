@@ -17,8 +17,8 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 import json
 
-@psa('social:complete')
-def google_one_tap_login(request, backend):
+
+def google_one_tap_login(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
