@@ -73,13 +73,22 @@ def index(request):
     if gender != 'ALL':
         items = items.filter(gender=gender)
 
-    return render(request, 'core/index.html', {
+    response = render(request, 'core/index.html', {
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
-        'name_category' : '🪦💀',
+        'name_category': '🪦💀',
         'gender': gender,
         'show_login': True
     })
+    
+    # Добавление заголовка CSP
+    response['Content-Security-Policy'] = (
+        "default-src 'self'; "
+        "script-src 'self' https://accounts.google.com; "
+        "child-src 'self' https://accounts.google.com"
+    )
+
+    return response
 
 
 def category(request, category_id):
