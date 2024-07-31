@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-project_folder = os.path.expanduser('~')  # adjust as appropriate
+project_folder = os.path.expanduser('~')  # adjust as aappropriate
 load_dotenv(os.path.join(project_folder, '.env'))
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')

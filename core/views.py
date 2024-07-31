@@ -8,7 +8,6 @@ from .forms import SignupForm
 import random
 
 from django.conf import settings
-from django.core.mail import send_mail
 
 from django.shortcuts import redirect
 from django.http import JsonResponse
@@ -121,11 +120,6 @@ def signup(request):
             else:
                 user = form.save()
 
-                subject = 'Nyashki store'
-                message = 'Спасибо за регистрацию'
-                email_from = settings.EMAIL_HOST_USER
-                recipient_list = [email]
-                send_mail(subject, message, email_from, recipient_list)
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 login(request, user)
                 return redirect('/')

@@ -12,6 +12,9 @@ from datetime import datetime
 
 from django.conf import settings
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 
 from .forms import NewItemForm, NewCategoryForm, EditItemForm, EditCategoryForm, NewCommentForm
 
@@ -156,11 +159,27 @@ def purchase(request):
         purchase.save()
         request.user.items.clear()
 
-        subject = 'Nyashki store'
-        message = f'Спасибо за покупку, с вами свяжиться АДМИН (пидарас)'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [request.user.email]
-        send_mail( subject, message, email_from, recipient_list )
+
+        context = {
+            'purchase': purchase
+        }
+        template_name = "item/email_purchase.html"
+
+        convert_to_html_content =  render_to_string(
+            template_name=template_name,
+            context=context
+        )
+
+        plain_message = strip_tags(convert_to_html_content)
+
+        yo_send_it = send_mail(
+            subject="Nyshki store",
+            message=plain_message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[request.user.email],   # recipient_list is self explainatory
+            html_message=convert_to_html_content,
+            fail_silently=True
+        )
 
         import requests
 
