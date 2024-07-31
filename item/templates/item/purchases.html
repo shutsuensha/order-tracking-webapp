@@ -22,22 +22,46 @@
                     <div class="grid grid-cols-3 gap-3">
                         {% if purchase.items.all %}
                             {% for item in purchase.items.all %}
-                                <div>
-                                    <a href="{% url 'item:detail' item.id %}">
-                                    {% if item.image.url %}
-                                        <img src="{{ item.image.url }}" class="rounded-t-xl">
-                                    {% endif %}
-                                    
-                                        <div class="md:p-6 p-2 bg-white rounded-b-xl">
-                                            {% if item.gender == 'M'%}
-                                                <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}</h2>
-                                                {% else %}
-                                                <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}</h2>
-                                            {% endif %}
-                                            <p class="md:text-3xl text-md font-semibold">{{ item.price }}$</p>
+                            <div>
+                                <a href="{% url 'item:detail' item.id %}">
+                                    {% if item.gender == 'W'%}
+                                        {% if item.image.url %}
+                                        <div class="bg-image hover-overlay hover-zoom ">
+                                            <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
+                                            <div class="mask" style="
+                                                background: linear-gradient(
+                                                    45deg,
+                                                    hsla(349, 94%, 58%, 0.34),
+                                                    hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                                );
+                                            "></div>
                                         </div>
-                                    </a>
-                                </div>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if item.image.url %}
+                                        <div class="bg-image hover-overlay hover-zoom">
+                                            <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
+                                            <div class="mask" style="
+                                                background: linear-gradient(
+                                                    45deg,
+                                                    hsla(217, 89%, 51%, 0.5),
+                                                    hsla(263, 87.7%, 44.7%, 0.2) 100%
+                                                );
+                                            "></div>
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    <div class="md:p-6 p-2 bg-white rounded-b-xl">
+                                            {% if item.gender == 'M'%}
+                                            <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}</h2>
+                                            {% else %}
+                                            <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}</h2>
+                                            {% endif %}
+                                        
+                                        <strong><p class="text-md md:text-3xl font-semibold dark:text-slate-950">{{ item.price }}$</p></strong>
+                                    </div>
+                                </a>
+                            </div>
                             {% endfor %}
                         {% endif %}
                     </div>

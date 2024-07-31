@@ -34,7 +34,7 @@
         </form>
     
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             {% for category in categories %}
                 <div>
                     <a href="{% url 'core:category' category.id %}">
@@ -55,7 +55,7 @@
     <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500" id="target-element">
         <h2 class="md:mb-12 mb-4 text-2xl text-center font-semibold">{{ name_category }}</h2>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             {% for item in items %}
                 <div>
                     <a href="{% url 'item:detail' item.id %}">

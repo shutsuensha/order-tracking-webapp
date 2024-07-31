@@ -179,29 +179,21 @@ def purchase(request):
 @login_required
 def purchase_delete(request, pk):
     instance = Purchase.objects.get(id=pk)
-
-    if not request.user.is_superuser:
-        subject = 'Nyashki store'
-        message = f'Вы удалили заказ, все потому что админ пидарас'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [request.user.email]
-        send_mail( subject, message, email_from, recipient_list )
-
-        import requests
-
-        bot_username = 'nyshaka_bot'
-        bot_api = settings.BOT_API
-        channel_name = '@nyashki_orders'
-        message = f'заказ для {instance.telegram}, price: {instance.price}$ УДАЛЕН'
-        url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
-        requests.get(url)
-        instance.delete()
-    
-        return redirect('item:basket')
-    
+    subject = 'Nyashki store'
+    message = f'Вы удалили заказ, все потому что админ пидарас'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [request.user.email]
+    send_mail( subject, message, email_from, recipient_list )
+    import requests
+    bot_username = 'nyshaka_bot'
+    bot_api = settings.BOT_API
+    channel_name = '@nyashki_orders'
+    message = f'заказ для {instance.telegram}, price: {instance.price}$ УДАЛЕН'
+    url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
+    requests.get(url)
     instance.delete()
 
-    return redirect('item:all_purchases')
+    return redirect('item:basket')
 
 
 @login_required
