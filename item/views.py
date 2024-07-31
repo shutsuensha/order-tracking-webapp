@@ -186,12 +186,12 @@ def purchase(request):
         bot_username = 'nyshaka_bot'
         bot_api = settings.BOT_API
         channel_name = '@nyashki_orders'
-        message = f'заказ для {purchase.telegram}, price: {purchase.price}$'
+        message = f'заказ для {purchase.telegram}, price: {purchase.price}$, email {purchase.user.email}$'
         url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
 
         requests.get(url)
 
-        return basket(request, 'Заказ успешно оформлен) c вами свяжиться АДМИН))))админ пидарас')
+        return basket(request, 'Заказ успешно оформлен)')
     return basket(request, 'в корзине пусто')
 
 
@@ -207,6 +207,8 @@ def purchase_delete(request, pk):
         context=context
     )
     plain_message = strip_tags(convert_to_html_content)
+
+    
     yo_send_it = send_mail(
         subject="Nyshki store",
         message=plain_message,
@@ -220,7 +222,7 @@ def purchase_delete(request, pk):
     bot_username = 'nyshaka_bot'
     bot_api = settings.BOT_API
     channel_name = '@nyashki_orders'
-    message = f'заказ для {instance.telegram}, price: {instance.price}$ УДАЛЕН'
+    message = f'заказ для {instance.telegram}, price: {instance.price}$, email {instance.user.email}, УДАЛЕН'
     url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
     requests.get(url)
     instance.delete()
