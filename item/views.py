@@ -186,15 +186,10 @@ def purchase(request):
         bot_username = 'nyshaka_bot'
         bot_api = settings.BOT_API
         channel_name = '@nyashki_orders'
-        message = convert_to_html_content
-        url = f'https://api.telegram.org/bot{bot_api}/sendMessage'
-        params = {
-            'chat_id': channel_name,
-            'text': convert_to_html_content,
-            'parse_mode': 'HTML'  # Устанавливаем режим HTML
-        }
+        message = f'заказ для {purchase.telegram}, price: {purchase.price}$'
+        url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
 
-        response = requests.get(url, params=params)
+        requests.get(url)
 
         return basket(request, 'Заказ успешно оформлен) c вами свяжиться АДМИН))))админ пидарас')
     return basket(request, 'в корзине пусто')
@@ -203,24 +198,32 @@ def purchase(request):
 @login_required
 def purchase_delete(request, pk):
     instance = Purchase.objects.get(id=pk)
-    subject = 'Nyashki store'
-    message = f'Вы удалили заказ, все потому что админ пидарас'
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [request.user.email]
-    send_mail( subject, message, email_from, recipient_list )
+    context = {
+        'purchase': instance
+    }
+    template_name = "item/email_delete.html"
+    convert_to_html_content =  render_to_string(
+        template_name=template_name,
+        context=context
+    )
+    plain_message = strip_tags(convert_to_html_content)
+    yo_send_it = send_mail(
+        subject="Nyshki store",
+        message=plain_message,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[request.user.email],   # recipient_list is self explainatory
+        html_message=convert_to_html_content,
+        fail_silently=True
+    )
     
     import requests
     bot_username = 'nyshaka_bot'
     bot_api = settings.BOT_API
     channel_name = '@nyashki_orders'
-    convert_to_html_content = '<b>Пример HTML-контента</b><br>Это пример <i>HTML</i> сообщения.'
-    url = f'https://api.telegram.org/bot{bot_api}/sendMessage'
-    params = {
-        'chat_id': channel_name,
-        'text': convert_to_html_content,
-        'parse_mode': 'HTML'  # Устанавливаем режим HTML
-    }
-    response = requests.get(url, params=params)
+    message = f'заказ для {instance.telegram}, price: {instance.price}$ УДАЛЕН'
+    url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
+    requests.get(url)
+    instance.delete()
 
     return redirect('item:basket')
 
