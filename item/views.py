@@ -208,14 +208,19 @@ def purchase_delete(request, pk):
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [request.user.email]
     send_mail( subject, message, email_from, recipient_list )
+    
     import requests
     bot_username = 'nyshaka_bot'
     bot_api = settings.BOT_API
     channel_name = '@nyashki_orders'
-    message = f'заказ для {instance.telegram}, price: {instance.price}$ УДАЛЕН'
-    url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
-    requests.get(url)
-    instance.delete()
+    convert_to_html_content = '<b>Пример HTML-контента</b><br>Это пример <i>HTML</i> сообщения.'
+    url = f'https://api.telegram.org/bot{bot_api}/sendMessage'
+    params = {
+        'chat_id': channel_name,
+        'text': convert_to_html_content,
+        'parse_mode': 'HTML'  # Устанавливаем режим HTML
+    }
+    response = requests.get(url, params=params)
 
     return redirect('item:basket')
 
