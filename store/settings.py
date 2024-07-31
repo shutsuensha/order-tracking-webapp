@@ -39,7 +39,7 @@ SECRET_KEY = 'django-insecure-=7rik&+ef^yvfmb2q3rep5aqjb-m6-7o@=xjs8z(x($aupz&(n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE=False
