@@ -37,11 +37,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=7rik&+ef^yvfmb2q3rep5aqjb-m6-7o@=xjs8z(x($aupz&(n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com']
 
 LOGIN_URL = '/login/'
+
+SECURE_SSL_REDIRECT = True
 
 
 # Application definition
@@ -129,6 +131,9 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://shutsuensha.pythonanywhere.com",
