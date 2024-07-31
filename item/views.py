@@ -165,7 +165,7 @@ def purchase(request):
         import requests
 
         bot_username = 'nyshaka_bot'
-        bot_api = '7455865851:AAHMICA0yI1Bcx8fTft6cA9BAwnGRbcNl-I'
+        bot_api = settings.bot_api
         channel_name = '@nyashki_orders'
         message = f'заказ для {purchase.telegram}, price: {purchase.price}$'
         url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
@@ -190,7 +190,7 @@ def purchase_delete(request, pk):
         import requests
 
         bot_username = 'nyshaka_bot'
-        bot_api = '7455865851:AAHMICA0yI1Bcx8fTft6cA9BAwnGRbcNl-I'
+        bot_api = settings.bot_api
         channel_name = '@nyashki_orders'
         message = f'заказ для {instance.telegram}, price: {instance.price}$ УДАЛЕН'
         url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
