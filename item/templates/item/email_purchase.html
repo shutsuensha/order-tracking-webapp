@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f5f5f5;
         }
         .container {
             display: flex;
@@ -24,6 +25,8 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             text-align: center;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .item img {
             max-width: 100%;
@@ -36,25 +39,55 @@
             font-size: 1em;
             color: #555;
         }
+        header {
+            background: linear-gradient(to right, #ff6f61, #d7d2cc);
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+        }
+        .detail {
+            text-align: center;
+            font-size: 1.1em;
+            margin: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <div>
-        <strong style="text-align: center;">Спасибо за покупку!</strong>
-    </div>
+    <header>
+        💓💗💗💓💋💗😇🤬😘🤬😘💗😘💓🍔 Спасибо за покупку! 💓💗💗💓💋💗😇🤬😘🤬😘💗😘💓🍔
+    </header>
     <div class="container">
-            {% for item in purchase.items.all %}
-            <div class="item">
-                <img src="https://shutsuensha.pythonanywhere.com{{item.image.url}}" alt="Item Image">
-                <p>{{ item.price }}$</p>
-            </div>
-            {% endfor %}
+        {% for item in purchase.items.all %}
+        <div class="item">
+            <img src="https://shutsuensha.pythonanywhere.com{{item.image.url}}" alt="Item Image">
+            <p>{{ item.price }}$</p>
+        </div>
+        {% endfor %}
     </div>
-    <div>
+    <div class="detail">
         Total: <b>{{purchase.price}}$</b>
-        date: {{purcase.created_at}}
+        <br>
+        Date: {{purchase.created_at}}
+        <br>
         Your email: {{purchase.user.email}}
-        Your telegram: {{purchase.telegram}}
+        <br>
+        Your Telegram: {{purchase.telegram}}
     </div>
+    <footer>
+        Thank you for shopping with us!
+    </footer>
 </body>
 </html>
