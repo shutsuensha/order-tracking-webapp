@@ -116,17 +116,18 @@ def signup(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             if User.objects.filter(email=email).exists():
-                form.add_error('email', 'email already exists')
+                form.add_error('email', 'email already exists, choose another email or u can auth from google')
             else:
-                form.save()
+                user = form.save()
 
                 subject = 'Nyashki store'
                 message = 'Спасибо за регистрацию'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [email]
                 send_mail(subject, message, email_from, recipient_list)
-
-                return redirect('/login/')
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user)
+                return redirect('/')
     else:
         form = SignupForm()
 
