@@ -5,12 +5,10 @@
 </head>
 <body>
     {% for item in purchase.items.all %}
-                            <div>
-                                <a href="{% url 'item:detail' item.id %}">
-                                        <img src="{{ item.image.url }}">
-                                        <p>{{ item.price }}$</p>
-                                </a>
-                            </div>
+        <div>
+            <img str="https://shutsuensha.pythonanywhere.com{{item.image.url}}">
+            <p>{{ item.price }}$</p>
+        </div>
     {% endfor %}
 </body>
 </html>
