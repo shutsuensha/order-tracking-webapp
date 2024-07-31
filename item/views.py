@@ -181,15 +181,15 @@ def purchase(request):
             fail_silently=True
         )
 
-        import requests
+        # import requests
 
-        bot_username = 'nyshaka_bot'
-        bot_api = settings.BOT_API
-        channel_name = '@nyashki_orders'
-        message = f'заказ для {purchase.telegram}, price: {purchase.price}$'
-        url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
+        # bot_username = 'nyshaka_bot'
+        # bot_api = settings.BOT_API
+        # channel_name = '@nyashki_orders'
+        # message = f'заказ для {purchase.telegram}, price: {purchase.price}$'
+        # url = f'https://api.telegram.org/bot{bot_api}/sendMessage?chat_id={channel_name}&text={message}'
 
-        requests.get(url)
+        # requests.get(url)
 
         return basket(request, 'Заказ успешно оформлен) c вами свяжиться АДМИН))))админ пидарас')
     return basket(request, 'в корзине пусто')
