@@ -40,17 +40,23 @@
 </head>
 <body>
     <div class="container">
-        <strong style="text-align: center;">Спасибо за покупку!</strong><br>
-        <div class="item">
-            <img src="https://shutsuensha.pythonanywhere.com{{item.image.url}}" alt="Item Image">
-            <p>{{ item.price }}$</p>
+        <div>
+            <strong style="text-align: center;">Спасибо за покупку!</strong>
         </div>
-        {% endfor %}
-        <br>
-        Total: <b>{{purchase.price}}$</b>
-        date: {{purcase.created_at}}
-        Your email: {{purchase.user.email}}
-        Your telegram: {{purchase.telegram}}
+        <div>
+            {% for item in purchase.items.all %}
+            <div class="item">
+                <img src="https://shutsuensha.pythonanywhere.com{{item.image.url}}" alt="Item Image">
+                <p>{{ item.price }}$</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            Total: <b>{{purchase.price}}$</b>
+            date: {{purcase.created_at}}
+            Your email: {{purchase.user.email}}
+            Your telegram: {{purchase.telegram}}
+        </div>
     </div>
 </body>
 </html>
