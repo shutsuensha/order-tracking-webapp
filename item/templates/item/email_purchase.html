@@ -36,16 +36,34 @@
             font-size: 1em;
             color: #555;
         }
+        .thank-you {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .purchase-info {
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="thank-you">Спасибо за покупку!</div>
         {% for item in purchase.items.all %}
         <div class="item">
             <img src="https://shutsuensha.pythonanywhere.com{{item.image.url}}" alt="Item Image">
             <p>{{ item.price }}$</p>
         </div>
         {% endfor %}
+        <div class="purchase-info">
+            Total: {{ purchase.price }}<br>
+            Date: {{ purchase.created_at }}<br>
+            Your email: {{ purchase.user.email }}<br>
+            Your telegram: {{ purchase.telegram }}
+        </div>
     </div>
 </body>
 </html>
