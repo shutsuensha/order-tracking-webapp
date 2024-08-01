@@ -40,7 +40,7 @@
     <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'W' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'W' %}">woman</a>
     <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'ALL' %} bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%} rounded-xl" href="{% url 'item:gender' 'ALL'%}">all </a>
     <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'M' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'M' %}">man</a>
-    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white bg-green-300 hover:bg-green-400 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold bg-green-300 hover:bg-green-400 rounded-xl text-neutral-950" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
         {{request.user.items.all|length}}
 {%endif%}</a>
 </div>
@@ -123,7 +123,7 @@
                 <p class="text-lg md:text-3xl dark:text-white">Total: {{ purchase.price }}$</p>
                 <p class="text-lg md:text-3xl dark:text-white">telegram: {{ purchase.telegram }}</p>
                 <a href="{% url 'item:purchase_delete' purchase.id %}" class="block text-center mt-2 mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 hover:bg-red-700 text-white rounded-xl">Remove</a>
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {% if purchase.items.all %}
                             {% for item in purchase.items.all %}
                             <div>

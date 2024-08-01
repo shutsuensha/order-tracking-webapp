@@ -4,13 +4,13 @@
 
 {% block content %}
 
-  <header class="sticky  {% if not request.user.is_authenticated %} top-14 {% else %} top-2 {%endif%} z-50 m-2">
-    <div class="grid grid-cols-5 gap-2 px-2">
-    <a class="text-center md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500" href="#">top</a>
-    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'W' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'W' %}">woman</a>
-    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'ALL' %} bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%} rounded-xl" href="{% url 'item:gender' 'ALL'%}">all </a>
-    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'M' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'M' %}">man</a>
-    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold bg-green-300 hover:bg-green-400 rounded-xl text-neutral-950" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+  <header class="sticky  {% if not request.user.is_authenticated %} top-14 {% else %} top-2 {%endif%} z-50 mt-2">
+    <div class="grid grid-cols-5 gap-1 px-1">
+    <a class="text-center  md:mb-3 md:px-6 md:py-3 py-2 px-2  text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500" href="#">top</a>
+    <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'W' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'W' %}">woman</a>
+    <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'ALL' %} bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%} rounded-xl" href="{% url 'item:gender' 'ALL'%}">all </a>
+    <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'M' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'M' %}">man</a>
+    <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold bg-green-300 hover:bg-green-400 rounded-xl text-neutral-950" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
         {{request.user.items.all|length}}
 {%endif%}</a>
 </div>

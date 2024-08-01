@@ -72,7 +72,7 @@
 
       <style>
         #sign_header {
-          background-image: url('https://i.pinimg.com/736x/4b/1f/a8/4b1fa8f499db0c2b3e95420228c4d826.jpg'); /* Фоновое изображение для мобильных устройств */
+          background-image: url("{% static 'images/mobile.jpg' %}"); /* Фоновое изображение для мобильных устройств */
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -84,11 +84,11 @@
           #sign_header {
             height: 600px; /* Высота для экранов шире 768px */
             background-image: 
-              url('https://i.pinimg.com/736x/17/1f/27/171f27ead133a978abaf98125c17f9d9.jpg'), 
-              url('https://i.pinimg.com/736x/99/be/12/99be1246f128145b06b16928e2a5056d.jpg'), 
-              url('https://i.pinimg.com/564x/eb/55/33/eb5533c1966dace5535c002c2cc9fc09.jpg'), 
-              url('https://i.pinimg.com/564x/32/a7/f3/32a7f34e145dac905974edf07167452e.jpg'),
-              url('https://i.pinimg.com/564x/5f/79/1f/5f791f4576fa56d6bb83033a8889ec0a.jpg');
+              url("{% static 'images/1.jpg' %}"), 
+              url("{% static 'images/2.jpg' %}"), 
+              url("{% static 'images/3.jpg' %}"), 
+              url("{% static 'images/4.jpg' %}"),
+              url("{% static 'images/5.jpg' %}");
               background-size: 25% 100%;
               background-position: 
                 0% 0%,   /* Первое изображение */
