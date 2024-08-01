@@ -28,6 +28,13 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script>
             window.onload = function () {
+              document.getElementById('sign_header').onclick = function() {
+                window.location.href = '/';
+              };
+              console.log('{{asdad21213}}')
+              if ('{{asdad21213}}' === 'True') {
+                  document.getElementById('target-element').removeAttribute('id')
+              }
               try {
                     document.getElementById('target-element').scrollIntoView({ behavior: 'smooth' });
                 } catch(err) {
@@ -37,6 +44,9 @@
                     document.getElementById('comments').scrollIntoView({ behavior: 'smooth' });
                 } catch(err) {
                     console.log('no commets section')
+                }
+                if ('{{show_tab}}' === 'False') {
+                  document.getElementById('zxczxczxc').style.display = 'none'
                 }
                 if ('{{request.user.is_authenticated}}' ===  'False' && '{{show_login}}' === 'True') {
                   google.accounts.id.initialize({
@@ -72,11 +82,12 @@
 
       <style>
         #sign_header {
+          margin-top: 6px;
           background-image: url("{% static 'images/mobile.jpg' %}"); /* Фоновое изображение для мобильных устройств */
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          height: 500px; /* Высота для мобильных устройств */
+          height: 600px; /* Высота для мобильных устройств */
           position: relative;
         }
 
@@ -129,48 +140,60 @@
       </style>
     </head>
 
-    <body class="dark:bg-zinc-700">
-          <header class="text-center" id="sign_header">
-              <a href="/" id="nyashki" class="md:text-3xl text-3xl font-bold text-white">Nyashki 2024 Company, Inc 💀</a>
-              {% if request.user.is_authenticated %}
-              <strong id="username" class="md:text-3xl text-3xl font-semibold">{{request.user.username}}</strong>
-              {% endif %}
-          </header>
-          {% if request.user.is_authenticated %}
-          <a href="{% url 'core:logout' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-2xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
-          {% endif %}
-          {% if not request.user.is_authenticated %}
-        <header class="sticky top-2 z-50 m-5">
-          <div class="grid grid-cols-3 gap-2 mt-2 px-2">
-            <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
-            <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-orange-300 text-white rounded-xl hover:bg-orange-500">Sign up</a>
-            <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-green-300 text-white rounded-xl hover:bg-green-400">Log in</a>
-          </div>
-        </header>
-          {% endif %}
 
-          {% if request.user.is_authenticated %}
-          <div class="grid grid-cols-2 gap-2 mt-2 px-2">
-            <a href="{% url 'conversation:inbox' %}" class="text-center px-2 py-2 text-lg font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Inbox {{ request.user.conversations.all | length }}</a>
-              <a href="{% url 'item:all_comments' %}" class="text-center px-2 py-2 text-lg font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Comments {{ request.user.comments.all | length }}</a>
-          </div>
-          {% endif %}
+    <body class="dark:bg-zinc-700" id="target-element">
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'core:logout' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
+      {% endif %}
+      {% if not request.user.is_authenticated %}
+    <header class="sticky top-2 z-50">
+      <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3">
+        <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
+        <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-orange-300 text-white rounded-xl hover:bg-orange-500">Sign up</a>
+        <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-green-300 text-white rounded-xl hover:bg-green-400">Log in</a>
+      </div>
+    </header>
+      {% endif %}
 
-          {% if request.user.is_superuser %}
-          <div class="grid grid-cols-3 gap-2 mt-2 px-2">
-            <a href="{% url 'item:new_category' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New category</a>
-            <a href="{% url 'item:new_item' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New item</a>
-            <a href="{% url 'item:all_purchases' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">All purchases</a>
-          </div>
-          {%endif%}
+      {% if request.user.is_authenticated %}
+      <div class="grid grid-cols-2 gap-2 mt-2 px-2">
+        <a href="{% url 'conversation:inbox' %}" class="text-center px-2 py-2 text-lg font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Inbox {{ request.user.conversations.all | length }}</a>
+          <a href="{% url 'item:all_comments' %}" class="text-center px-2 py-2 text-lg font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Comments {{ request.user.comments.all | length }}</a>
+      </div>
+      {% endif %}
+
+      {% if request.user.is_superuser %}
+      <div class="grid grid-cols-3 gap-2 mt-2 px-2">
+        <a href="{% url 'item:new_category' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New category</a>
+        <a href="{% url 'item:new_item' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New item</a>
+        <a href="{% url 'item:all_purchases' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">All purchases</a>
+      </div>
+      {%endif%}
+        <header class="text-center" id="sign_header" style="cursor: pointer;">
+            <a href="/" id="nyashki" class="md:text-3xl text-3xl font-bold text-white">Nyashki 2024 Company, Inc 💀</a>
+            {% if request.user.is_authenticated %}
+            <strong id="username" class="md:text-3xl text-3xl font-semibold">{{request.user.username}}</strong>
+            {% endif %}
+      </header>
 
       
 
 
-        <div class="px-2">
+        <div class="px-2 mt-5">
             {% block content %}
             {% endblock %}
         </div>
+
+        <header class="sticky bottom-2 z-50 mt-2 md:w-1/2 mx-auto" id="zxczxczxc">
+          <div class="grid grid-cols-4 gap-1 px-1">
+          <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'W' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'W' %}">woman</a>
+          <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'ALL' %} bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%} rounded-xl" href="{% url 'item:gender' 'ALL'%}">all </a>
+          <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'M' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'M' %}">man</a>
+          <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold bg-green-300 hover:bg-green-400 rounded-xl text-neutral-950" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+              {{request.user.items.all|length}}
+      {%endif%}</a>
+      </div>
+        </header>
 
         <!--Footer container-->
         <hr class="dark:text-white m-5">
@@ -288,5 +311,6 @@
           <a href="#">Nyashki 2024 Company, Inc 💀</a>
         </div>
         </footer>
+
     </body>
 </html>

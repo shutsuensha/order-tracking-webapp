@@ -53,13 +53,15 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'edit_form': form_edit,
             'pk_comment': pk_comment,
             'op': op,
-            'js_op': js_op
+            'js_op': js_op,
+            'asdad21213': True
         })
 
     return render(request, 'item/detail.html', {
             'item': item,
             'related_items': related_items,
-            'gender': gender
+            'gender': gender,
+            'asdad21213': True
     })
 
 def items(request):
@@ -84,7 +86,8 @@ def items(request):
         'items': sorted(items, key=lambda x: random.random()),
         'name_category' : f'{query}' if query else '🪦💀',
         'gender': gender,
-        'query': query
+        'query': query,
+        'asdad21213': True
     })
 
 @login_required
@@ -113,7 +116,8 @@ def basket(request, message=None):
         'items': items,
         'gender': gender,
         'message': message,
-        'purchases': purchases
+        'purchases': purchases[::-1],
+        'asdad21213': True
     })
 
 @login_required
@@ -191,8 +195,8 @@ def purchase(request):
 
         requests.get(url)
 
-        return basket(request, 'Заказ успешно оформлен)')
-    return basket(request, 'в корзине пусто')
+        return redirect('item:basket')
+    return redirect('item:basket')
 
 
 @login_required
@@ -396,5 +400,6 @@ def edit_comment(request, pk_comment, pk_item):
 def all_comments(request):
     items = Item.objects.filter(comments__user=request.user).distinct()
     return render(request, 'item/comments.html', {
-            'items': items
+            'items': items,
+            'asdad21213': True
     })

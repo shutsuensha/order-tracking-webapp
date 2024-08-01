@@ -3,9 +3,9 @@
 {% block title %}Conversation{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl mt-4 dark:text-white">Conversation</h1>
+<h1 class="mb-6 text-3xl mt-4 dark:text-white text-center" id="target-element">Conversation</h1>
 
-<div class="space-y-6">
+<div class="space-y-6 md:w-1/2 mx-auto">
     {% for message in conversation.messages.all %}
         <div class="p-6 flex {% if message.created_by == request.user %}bg-blue-100{% else %}bg-gray-100 dark:bg-zinc-500 dark:text-white{% endif %} rounded-xl">
             <div>
@@ -19,8 +19,8 @@
 <form method="post" action="." class="mt-6 dark:text-white dark:text-white">
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <div class="text-center">{{ form.as_p }}</div>
 
-    <button class="w-full text-center py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Send</button>
+    <button class="block mt-2 md:w-1/2 mx-auto text-center py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Send</button>
 </form>
 {% endblock %}

@@ -11,7 +11,7 @@ from .models import Conversation
 @login_required
 def new_conversation(request, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
-    admin = User.objects.get(username='admin')
+    admin = User.objects.get(username='dankupr21')
     if admin == request.user:
         return redirect('dashboard:index')
     
@@ -39,7 +39,9 @@ def new_conversation(request, item_pk):
         form = ConversationMessageForm()
     
     return render(request, 'conversation/new.html', {
-        'form': form
+        'form': form,
+        'asdad21213': True,
+        'show_tab': False
     })
 
 @login_required
@@ -47,7 +49,9 @@ def inbox(request):
     conversations = Conversation.objects.filter(members__in=[request.user.id])
 
     return render(request, 'conversation/inbox.html', {
-        'conversations': conversations
+        'conversations': conversations,
+        'asdad21213': True,
+        'show_tab': False
     })
 
 @login_required
@@ -71,5 +75,7 @@ def detail(request, pk):
 
     return render(request, 'conversation/detail.html', {
         'conversation': conversation,
-        'form': form
+        'form': form,
+        'asdad21213': True,
+        'show_tab': False
     })

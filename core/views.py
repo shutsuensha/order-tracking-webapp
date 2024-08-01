@@ -77,7 +77,7 @@ def index(request):
         'items': sorted(items, key=lambda x: random.random()),
         'name_category' : '🪦💀',
         'gender': gender,
-        'show_login': True
+        'show_login': True,
     })
 
 
@@ -101,7 +101,8 @@ def category(request, category_id):
         'items': sorted(items, key=lambda x: random.random()),
         'name_category' : category.name,
         'gender': gender,
-        'query': category
+        'query': category,
+        'asdad21213': True
     })  
 
 
@@ -128,5 +129,7 @@ def signup(request):
 
     return render(request, 'core/signup.html', {
         'form': form,
-        'show_login': True
+        'show_login': True,
+        'show_tab': False,
+        'asdad21213': True
     })

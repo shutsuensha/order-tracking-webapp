@@ -8,6 +8,6 @@ class ConversationMessageForm(forms.ModelForm):
         fields = ('content',)
         widgets = {
             'content': forms.Textarea(attrs={
-                'class': 'w-full py-4 px-6 rounded-xl border dark:bg-zinc-500'
+                'class': 'block md:w-1/2 mx-auto py-4 px-6 rounded-xl border dark:bg-zinc-500'
             })
         }
