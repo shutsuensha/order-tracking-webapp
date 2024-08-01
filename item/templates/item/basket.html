@@ -33,19 +33,19 @@
 
   
 
-  <nav class="navbar flex fixed-bottom bg-transparent">
-    <div class="container-fluid">
-      <a class="navbar-brand md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700 rounded-xl"  href="{% url 'core:index'%}">top $$@@</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-white bg-red-500 hover:bg-red-700 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
-                {{request.user.items.all|length}}
-        {%endif%}</a>
-        <ul>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700 rounded-s-xl" href="{% url 'item:gender' 'ALL'%}">all {% if gender == 'ALL' %} ✔️ {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700" href="{% url 'item:gender' 'W' %}">woman {% if gender == 'W' %} ✔️ {%endif%}</a>
-            <a class="md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-sm font-semibold text-slate-950 bg-red-500 hover:bg-red-700 rounded-e-xl" href="{% url 'item:gender' 'M' %}">man{% if gender == 'M' %} ✔️ {%endif%}</a>
-            </ul>
-        </div>
-  </nav>
+
+  <header class="sticky  {% if not request.user.is_authenticated %} top-14 {% else %} top-2 {%endif%} z-50 m-2" id="target-element">
+    <div class="grid grid-cols-5 gap-2 px-2">
+    <a class="text-center md:text-2xl md:mb-3 md:px-6 md:py-3 py-2 px-2  text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500"  href="{% url 'core:index'%}">top</a>
+    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'W' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'W' %}">woman</a>
+    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'ALL' %} bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%} rounded-xl" href="{% url 'item:gender' 'ALL'%}">all </a>
+    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'M' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'M' %}">man</a>
+    <a class="text-center md:mb-3 md:text-2xl md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white bg-green-300 hover:bg-green-400 rounded-xl" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+        {{request.user.items.all|length}}
+{%endif%}</a>
+</div>
+  </header>
+
 <div class="grid grid-cols-2 gap-3">
     <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500">
         <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold dark:text-white">Корзина🧺
@@ -65,7 +65,7 @@
             <a href="{% url 'item:delete' %}"class="block text-center mb-2 mt-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 hover:bg-red-700  text-white rounded-xl">Delete all</a>
         {%endif%}
 
-        <div class="grid grid-cols-1 gap-3 mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
             {% if items %}
                 {% for item in items %}
                 <div>
@@ -73,7 +73,7 @@
                         {% if item.gender == 'W'%}
                             {% if item.image.url %}
                             <div class="bg-image hover-overlay hover-zoom ">
-                                <img src="{{ item.image.url }}" class="rounded-t-xl object-contain w-full">
+                                <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
                                 <div class="mask" style="
                                     background: linear-gradient(
                                         45deg,
@@ -86,7 +86,7 @@
                         {% else %}
                             {% if item.image.url %}
                             <div class="bg-image hover-overlay hover-zoom ">
-                                <img src="{{ item.image.url }}" class="rounded-t-xl object-contain w-full">
+                                <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
                                 <div class="mask" style="
                                     background: linear-gradient(
                                         45deg,

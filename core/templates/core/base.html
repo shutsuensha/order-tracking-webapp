@@ -69,31 +69,89 @@
                 });
             }
       </script>
+
+      <style>
+        #sign_header {
+          background-image: url('https://i.pinimg.com/736x/4b/1f/a8/4b1fa8f499db0c2b3e95420228c4d826.jpg'); /* Фоновое изображение для мобильных устройств */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          height: 500px; /* Высота для мобильных устройств */
+          position: relative;
+        }
+
+        @media (min-width: 768px) {
+          #sign_header {
+            height: 600px; /* Высота для экранов шире 768px */
+            background-image: 
+              url('https://i.pinimg.com/736x/17/1f/27/171f27ead133a978abaf98125c17f9d9.jpg'), 
+              url('https://i.pinimg.com/736x/99/be/12/99be1246f128145b06b16928e2a5056d.jpg'), 
+              url('https://i.pinimg.com/564x/eb/55/33/eb5533c1966dace5535c002c2cc9fc09.jpg'), 
+              url('https://i.pinimg.com/564x/32/a7/f3/32a7f34e145dac905974edf07167452e.jpg'),
+              url('https://i.pinimg.com/564x/5f/79/1f/5f791f4576fa56d6bb83033a8889ec0a.jpg');
+              background-size: 25% 100%;
+              background-position: 
+                0% 0%,   /* Первое изображение */
+                25% 0%,  /* Второе изображение */
+                50% 0%,  /* Третье изображение */
+                75% 0%,  /* Четвертое изображение */
+                100% 0%;
+              background-repeat: no-repeat;
+          }
+        }
+
+        #nyashki, #username {
+          position: absolute;
+          left: 10px;   /* Отступ от левого края */
+          color: white; /* Цвет текста */
+          text-decoration: none; /* Убирает подчеркивание у ссылки */
+          margin: 10px;
+          padding: 5px 10px; /* Внутренние отступы */
+          background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+          border-radius: 3px; /* Скругленные углы */
+        }
+
+        #nyashki {
+          bottom: 10px; /* Отступ от нижнего края */
+        }
+
+        #username {
+          bottom: 70px; /* Отступ от нижнего края, больше чем у #nyashki */
+        }
+
+        @media (max-width: 767px) {
+        #username {
+          bottom: 100px; /* Увеличенный отступ от нижнего края для мобильных устройств */
+        }
+      }
+
+
+      </style>
     </head>
 
     <body class="dark:bg-zinc-700">
-        <nav class="py-2 px-2 flex justify-between items-center dark:text-white">
-            <a href="/" class="md:text-3xl text-sm font-semibold">Nyashki 2024 Company, Inc 💀</a>
-
-            <div class="space-x-1">
-            
+          <header class="text-center" id="sign_header">
+              <a href="/" id="nyashki" class="md:text-3xl text-3xl font-bold text-white">Nyashki 2024 Company, Inc 💀</a>
               {% if request.user.is_authenticated %}
-              <strong class="md:text-3xl text-sm font-semibold">{{request.user.username}}</strong>
-              <a href="{% url 'core:logout' %}" class="px-2 py-2 md:text-2xl text-sm font-semibold bg-orange-400 text-white rounded-xl hover:bg-orange-600">Logout</a>
+              <strong id="username" class="md:text-3xl text-3xl font-semibold">{{request.user.username}}</strong>
               {% endif %}
-            </div>
-          </nav>
+          </header>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'core:logout' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-2xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
+          {% endif %}
           {% if not request.user.is_authenticated %}
+        <header class="sticky top-2 z-50 m-5">
           <div class="grid grid-cols-3 gap-2 mt-2 px-2">
             <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
             <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-orange-300 text-white rounded-xl hover:bg-orange-500">Sign up</a>
             <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-green-300 text-white rounded-xl hover:bg-green-400">Log in</a>
-        </div>
+          </div>
+        </header>
           {% endif %}
 
           {% if request.user.is_authenticated %}
           <div class="grid grid-cols-2 gap-2 mt-2 px-2">
-            <a href="{% url 'conversation:inbox' %}" class="text-center px-2 py-2 text-lg font-semibold bg-cyan-200 text-cyan-950 hover:text-white rounded-xl hover:bg-cyan-400">Inbox {{ request.user.conversations.all | length }}</a>
+            <a href="{% url 'conversation:inbox' %}" class="text-center px-2 py-2 text-lg font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Inbox {{ request.user.conversations.all | length }}</a>
               <a href="{% url 'item:all_comments' %}" class="text-center px-2 py-2 text-lg font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Comments {{ request.user.comments.all | length }}</a>
           </div>
           {% endif %}
