@@ -31,7 +31,6 @@
               document.getElementById('sign_header').onclick = function() {
                 window.location.href = '/';
               };
-              console.log('{{asdad21213}}')
               if ('{{asdad21213}}' === 'True') {
                   document.getElementById('target-element').removeAttribute('id')
               }
@@ -53,7 +52,6 @@
                       client_id: "155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com",
                       callback: handleCredentialResponse
                   });
-                  google.accounts.id.prompt(); 
               }
             };
         
@@ -143,17 +141,25 @@
     </head>
 
 
+
     <body class="dark:bg-zinc-700" id="target-element">
       {% if request.user.is_authenticated %}
       <a href="{% url 'core:logout' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
       {% endif %}
       {% if not request.user.is_authenticated %}
-    <header class="sticky top-2 z-50">
+    <header class="sticky top-2 z-50" style="position:relative">
       <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3">
         <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
         <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-orange-300 text-white rounded-xl hover:bg-orange-500">Sign up</a>
         <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-green-300 text-white rounded-xl hover:bg-green-400">Log in</a>
       </div>
+      <div id="g_id_onload"
+     data-client_id="155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com"
+     data-prompt_parent_id="g_id_onload"
+     data-login_uri="https://shutsuensha.pythonanywhere.com/login"
+     style="position: absolute; top: 100px; left: 30px;
+            width: 0; height: 0; z-index: 1001;">
+    </div>
     </header>
       {% endif %}
 
