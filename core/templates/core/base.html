@@ -78,17 +78,19 @@
                     console.error('Error:', error);
                 });
             }
+
       </script>
 
       <style>
         #sign_header {
           margin-top: 6px;
-          background-image: url("{% static 'images/mobile.jpg' %}"); /* Фоновое изображение для мобильных устройств */
+          background-image: url("{% static 'images/mobile.jpg' %}"); /* Фоновое изображение */
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          height: 600px; /* Высота для мобильных устройств */
+          height: 600px; /* Высота элемента */
           position: relative;
+          background-attachment: fixed; /* Фиксируем фон для параллакса */
         }
 
         @media (min-width: 768px) {
