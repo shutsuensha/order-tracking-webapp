@@ -52,6 +52,7 @@
                       client_id: "155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com",
                       callback: handleCredentialResponse
                   });
+                  google.accounts.id.prompt(); 
               }
             };
         
@@ -93,7 +94,10 @@
 
         @media (min-width: 768px) {
           #sign_header {
-            height: 600px; /* Высота для экранов шире 768px */
+            height: 750px; /* Высота для экранов шире 768px */
+            display: flex;
+            justify-content: center; /* Горизонтальное выравнивание */
+            align-items: center;
             background-image: 
               url("{% static 'images/1.jpg' %}"), 
               url("{% static 'images/2.jpg' %}"), 
@@ -112,14 +116,13 @@
         }
 
         #nyashki, #username {
-          position: absolute;
-          left: 10px;   /* Отступ от левого края */
-          color: white; /* Цвет текста */
-          text-decoration: none; /* Убирает подчеркивание у ссылки */
+          color: white;
+          text-decoration: none;
           margin: 10px;
-          padding: 5px 10px; /* Внутренние отступы */
-          background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-          border-radius: 3px; /* Скругленные углы */
+          padding: 40px 50px;
+          background-color: rgba(0, 0, 0, 0.5);
+          border-radius: 5px;
+          font-size: 50px; /
         }
 
         #nyashki {
@@ -136,31 +139,49 @@
         }
       }
 
+      .zoom-image {
+        transition: transform 0.2s ease; /* Плавный переход для увеличения изображения */
+
+      }
+
+      .zoom-image:hover {
+        transform: scale(1.1); /* Увеличиваем изображение на 10% при наведении */
+      }
+
 
       </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('zxczxczxc');
+    const target = document.getElementById('123');
+    
+    function checkVisibility() {
+      const targetRect = target.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (targetRect.top <= windowHeight) {
+        header.style.display = 'block'; // Показываем заголовок
+      } else {
+        header.style.display = 'none'; // Скрываем заголовок
+      }
+    }
+
+    // Проверяем видимость при прокрутке
+    window.addEventListener('scroll', checkVisibility);
+    
+    // Проверяем видимость при загрузке страницы
+    checkVisibility();
+  });
+</script>
     </head>
+
 
 
 
     <body class="dark:bg-zinc-700" id="target-element">
       {% if request.user.is_authenticated %}
       <a href="{% url 'core:logout' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
-      {% endif %}
-      {% if not request.user.is_authenticated %}
-    <header class="sticky top-2 z-50" style="position:relative">
-      <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3">
-        <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-lg font-semibold bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
-        <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-lg font-semibold bg-orange-300 text-white rounded-xl hover:bg-orange-500">Sign up</a>
-        <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-lg font-semibold bg-green-300 text-white rounded-xl hover:bg-green-400">Log in</a>
-      </div>
-      <div id="g_id_onload"
-     data-client_id="155751116358-ol9edr6nd1l0b2jv0hlr8gc9lt9hdrlt.apps.googleusercontent.com"
-     data-prompt_parent_id="g_id_onload"
-     data-login_uri="https://shutsuensha.pythonanywhere.com/login"
-     style="position: absolute; top: 100px; left: 30px;
-            width: 0; height: 0; z-index: 1001;">
-    </div>
-    </header>
       {% endif %}
 
       {% if request.user.is_authenticated %}
@@ -183,6 +204,15 @@
             <strong id="username" class="md:text-3xl text-3xl font-semibold">{{request.user.username}}</strong>
             {% endif %}
       </header>
+      {% if not request.user.is_authenticated %}
+      <header class="sticky top-2 z-50">
+        <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3 mt-5">
+          <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-2xl  bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
+          <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-2xl bg-orange-400 text-white rounded-xl hover:bg-orange-500">Sign up</a>
+          <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-2xl  bg-green-400 text-white rounded-xl hover:bg-green-500">Log in</a>
+        </div>
+      </header>
+        {% endif %}
 
       
 
@@ -192,12 +222,14 @@
             {% endblock %}
         </div>
 
-        <header class="sticky bottom-2 z-50 mt-2 md:w-1/2 mx-auto" id="zxczxczxc">
-          <div class="grid grid-cols-4 gap-1 px-1">
-          <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'W' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'W' %}">woman</a>
-          <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'ALL' %} bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%} rounded-xl" href="{% url 'item:gender' 'ALL'%}">all </a>
-          <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold text-white {% if gender == 'M' %}  bg-purple-600 hover:bg-purple-300 {%else%} bg-orange-300 hover:bg-orange-500 {%endif%}  rounded-xl" href="{% url 'item:gender' 'M' %}">man</a>
-          <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg font-semibold bg-green-300 hover:bg-green-400 rounded-xl text-neutral-950" aria-current="page" href="{% url 'item:basket' %}">🧺    {% if request.user.items.all|length != 0 %}
+        <header class="sticky bottom-2 z-50 mt-5 md:w-1/2 mx-auto" id="zxczxczxc" style="display: none;">
+          <div class="grid grid-cols-2 gap-4 px-3">
+            <div class="grid grid-cols-3 gap-0 px-1 transition-transform duration-300 transform hover:scale-110">
+              <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'W' %}  bg-indigo-600  {%else%} bg-indigo-400  {%endif%} rounded-s-xl" href="{% url 'item:gender' 'W' %}">woman</a>
+            <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'ALL' %} bg-indigo-600 {%else%} bg-indigo-400 {%endif%}" href="{% url 'item:gender' 'ALL'%}">all </a>
+            <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'M' %}  bg-indigo-600  {%else%} bg-indigo-400 {%endif%}  rounded-e-xl" href="{% url 'item:gender' 'M' %}">man</a>
+            </div>
+          <a class="transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-green-400 rounded-xl" href="{% url 'item:basket' %}">Корзина 🧺    {% if request.user.items.all|length != 0 %}
               {{request.user.items.all|length}}
       {%endif%}</a>
       </div>
@@ -206,7 +238,7 @@
         <!--Footer container-->
         <hr class="dark:text-white m-5">
         <footer
-        class="flex flex-col items-center bg-zinc-50 text-center text-surface dark:bg-zinc-700 dark:text-white mb-7">
+        class="flex flex-col items-center text-center text-surface dark:bg-zinc-700 dark:text-white">
         <div class="container mt-2">
           <!-- Social media icons container -->
           <div class="mb-2 flex justify-center space-x-2">
