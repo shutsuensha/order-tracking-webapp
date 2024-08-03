@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <div class="mt-4 px-6 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 mx-auto md:w-1/2">
+    <div class="mt-4 px-4 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 mx-auto md:w-1/2 transition-transform duration-300 transform hover:scale-105">
         <h2 class="transition-transform duration-300 transform hover:scale-110 mb-4 text-3xl text-center font-semibold dark:text-white"><a href="/"> All stuff 🎃</a></h2>
 
         <form method="get" action="{% url 'item:items' %}">
@@ -16,9 +16,9 @@
         </form>
     
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 ">
             {% for category in categories %}
-            <div class="transition-transform duration-300 transform hover:scale-110 p-2 bg-white rounded-xl text-center dark:text-black">
+            <div class="transition-transform duration-300 transform hover:scale-125 p-2 bg-white rounded-xl text-center dark:text-black">
                 <a href="{% url 'core:category' category.id %}" class="block">
                     <h2 class="text-md md:text-2xl font-semibold">{{ category.name }}</h2>
                     <p class="text-gray-500 text-sm">{{ category.items.count }} items</p>
@@ -40,7 +40,7 @@
 
     </div>
 
-    <div class="mt-8 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 mx-5">
+    <div class="mt-20 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 mx-5 transition-transform duration-300 transform hover:scale-105">
         <h2 class="mb-4 mt-2 text-3xl text-center font-bold dark:text-white">{{ name_category }}</h2>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">

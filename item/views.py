@@ -20,7 +20,7 @@ from .forms import NewItemForm, NewCategoryForm, EditItemForm, EditCategoryForm,
 
 
 
-def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=None, op=None, js_op=None):
+def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=None, op=None, js_op=None, pisya=None):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)
 
@@ -55,6 +55,9 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'op': op,
             'js_op': js_op,
             'asdad21213': True,
+            'zxc12qwiehjqwaiode': 'target-element',
+            'xzcqer1e4123': True,
+            'pisya': pisya
         })
 
     return render(request, 'item/detail.html', {
@@ -197,7 +200,8 @@ def gender_detail(request, gender, pk):
             'asdad21213': True,
             'zxcasdawd': 'target-element',
             'xzcqer1e4123': True,
-            'gdhsfguidfhgi': True
+            'gdhsfguidfhgi': True,
+            'form': NewCommentForm()
     })
     
 
@@ -422,9 +426,65 @@ def new_comment(request, pk):
                 comment.created_at = datetime.now()
                 comment.save()
                 item.comments.add(comment)
-                return detail(request, pk=pk, op='comments')
+
+                item = get_object_or_404(Item, pk=pk)
+                related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)
+
+                gender = ''
+                if "gender" not in request.session:
+                    gender = 'ALL'
+                else:
+                    gender = request.session["gender"]
+
+                if gender != 'ALL':
+                    related_items = related_items.filter(gender=gender)
+
+                basket_items = request.user.items.all()
+                in_basket = False
+                if item in basket_items:
+                    in_basket = True
+
+                form = NewCommentForm()
             
-            return detail(request, pk, form=form, op='comments')
+                return render(request, 'item/detail.html', {
+                    'item': item,
+                    'related_items': related_items,
+                    'in_basket': in_basket,
+                    'gender': gender,
+                    'form': form,
+                    'op': 'comments',
+                    'asdad21213': True,
+                    'zxc12qwiehjqwaiode': 'target-element',
+                    'xzcqer1e4123': True,
+                    'asoifjasklfhjaklswof': True
+                })
+            
+            related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)
+            basket_items = request.user.items.all()
+            in_basket = False
+            if item in basket_items:
+                in_basket = True
+            gender = ''
+            if "gender" not in request.session:
+                gender = 'ALL'
+            else:
+                gender = request.session["gender"]
+
+            if gender != 'ALL':
+                related_items = related_items.filter(gender=gender)
+        
+            return render(request, 'item/detail.html', {
+                    'item': item,
+                    'related_items': related_items,
+                    'in_basket': in_basket,
+                    'gender': gender,
+                    'form': form,
+                    'op': 'comments',
+                    'asdad21213': True,
+                    'zxc12qwiehjqwaiode': 'target-element',
+                    'xzcqer1e4123': True,
+                    'form': form
+                })
 
     return redirect('/')
 
@@ -433,7 +493,33 @@ def delete_comment(request, pk_comment, pk_item):
     comment = Comment.objects.get(pk=pk_comment)
     if request.user == comment.user:
         comment.delete()
-        return detail(request, pk=pk_item, op='comments')
+        item = Item.objects.get(pk=pk_item)
+        related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk_item)
+        basket_items = request.user.items.all()
+        in_basket = False
+        if item in basket_items:
+            in_basket = True
+        gender = ''
+        if "gender" not in request.session:
+            gender = 'ALL'
+        else:
+            gender = request.session["gender"]
+        form = NewCommentForm()
+
+        if gender != 'ALL':
+            related_items = related_items.filter(gender=gender)
+        return render(request, 'item/detail.html', {
+                    'item': item,
+                    'related_items': related_items,
+                    'in_basket': in_basket,
+                    'gender': gender,
+                    'form': form,
+                    'op': 'comments',
+                    'asdad21213': True,
+                    'zxc12qwiehjqwaiode': 'target-element',
+                    'xzcqer1e4123': True,
+                    'asoifjasklfhjaklswof': True
+                })
     return redirect('item:detail', pk=pk_item)
 
 
@@ -446,15 +532,15 @@ def edit_comment(request, pk_comment, pk_item):
             comment = form.save(commit=False)
             comment.created_at = datetime.now()
             comment.save()
-            return detail(request, pk_item, op='comments')
-        return detail(request, pk_item, pk_comment=pk_comment, form_edit=form, op='comments')
+            return detail(request, pk_item, op='comments', pisya='asdasfawfawdasd123dasdxzzxc')
+        return detail(request, pk_item, pk_comment=pk_comment, form_edit=form, pisya='asdasfawfawdasd123dasdxzzxc')
 
     else:
         comment = Comment.objects.get(pk=pk_comment)
         if not request.user == comment.user:
             return redirect('item:detail', pk=pk_item)
         edit_form = NewCommentForm(instance=comment)
-        return detail(request, pk_item, pk_comment=pk_comment, form_edit=edit_form, op='comments')
+        return detail(request, pk_item, pk_comment=pk_comment, form_edit=edit_form, op='comments', pisya='asdasfawfawdasd123dasdxzzxc')
     
 
 @login_required

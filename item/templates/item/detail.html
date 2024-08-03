@@ -4,6 +4,7 @@
 
 {% block content %}
 
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-4">
 
     <div class="md:ms-20">
@@ -20,7 +21,7 @@
         </a>
     </div>
 
-    <div class="px-2py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-white text-center md:me-20" id="centered">
+    <div class="px-2py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-white text-center md:me-20 transition-transform duration-300 transform hover:scale-105" id="centered">
         {% if item.gender == 'M'%}
                                 <h2 class="text-3xl text-blue-700 dark:text-white font-bold mt-20 mb-3">{{ item.name }}</h2>
                                 {% else %}
@@ -40,7 +41,7 @@
         <p class="text-lg md:text-2xl font-semibold"><strong>{{ item.price }}$</p></strong>
     
         {% if item.description %}
-            <p class="text-md md:text-2xl">
+            <p class="text-md md:text-2xl m-8">
                 {{ item.description }}
             </p>
         {% endif %}
@@ -48,12 +49,12 @@
             <a href="{% url 'item:add' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-green-400 hover:bg-green-500 text-white rounded-xl">Add</a>
         {% else %}
             {% if in_basket %}
-            <a href="{% url 'item:remove_detail' item.id %}" class="text-center block md:w-1/2 mx-auto md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">Remove</a>
+            <a href="{% url 'item:remove_detail' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-600 hover:bg-red-500 text-white rounded-xl">Remove</a>
             {% else %}
-            <a href="{% url 'item:add' item.id %}" class="w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500  hover:bg-blue-700 text-white rounded-xl">Add</a>
+            <a href="{% url 'item:add' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-green-400 hover:bg-green-500 text-white rounded-xl">Add</a>
             {% endif %}
             {% if not request.user.is_superuser %}
-                <a href="{% url 'conversation:new' item.id %}" class="block md:w-1/2 mx-auto text-center mt-6 px-4 py-3 text-md font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact admin</a>
+                <a href="{% url 'conversation:new' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-green-400 hover:bg-green-500 text-white rounded-xl">Contact admin</a>
             {% endif %}
             {% if request.user.is_superuser %}
                 <a href="{% url 'item:remove_item' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-md font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Remove permanent</a>
@@ -73,10 +74,11 @@
     </div>
 </div>
 
+<div class="transition-transform duration-300 transform hover:scale-105">
 {% if request.user.is_authenticated %}
-<h1 class="mb-6 text-3xl mt-4 dark:text-white text-center">Add comment</h1>
+<h1 class="mb-2 text-3xl mt-12  dark:text-white text-center" id="{{op}}">Add comment</h1>
 
-<form method="post" action="{% url 'item:new_comment'  item.id %}" enctype="multipart/form-data" class="dark:text-white dark:bg-zinc-700">
+<form method="post" action="{% url 'item:new_comment'  item.id %}" enctype="multipart/form-data" class="mx-5 dark:text-white dark:bg-zinc-700 ">
     {% csrf_token %}
 
     <div class="space-y-4 text-center">
@@ -84,7 +86,7 @@
     </div>
 
     {% if form.errors or form.non_field_errors %}
-        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+        <div class=" mt-4 mb-3 p-6 bg-red-100 rounded-xl w-1/2 mx-auto">
             {% for field in form %}
                 {{ field.errors }}
             {% endfor %}
@@ -92,13 +94,13 @@
             {{ form.non_field_errors }}
         </div>
     {% endif %}
-
-    <button class="mt-6 block w-96 md:w-1/2 mx-auto text-center py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+    <div class="w-1/2 mx-auto"><button class="block mt-4 w-1/2 mx-auto text-center py-2 px-2 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button></div>
 </form>
 {%endif%}
+</div>
 
 {% if item.comments.all %}
-<h1 class="mb-6 text-3xl mt-10 dark:text-white md:w-1/2 mx-auto text-center">Comments</h1>
+<h1 class="mb-4 text-3xl mt-10 dark:text-white md:w-1/2 mx-auto text-center">Comments</h1>
 <div class="space-y-6 md:w-1/2 mx-auto">
 {% for comment in item.comments.all %}
     {%if op %}
@@ -106,7 +108,7 @@
     {%else%}
     <div class="p-6 text-center {% if request.user == comment.user %} bg-sky-100 {% else %} bg-gray-100 dark:bg-zinc-500 dark:text-white{% endif %} rounded-xl">
     {%endif%}
-    <div>
+    <div {% if pk_comment == comment.id %} id="xdcfghjsdioufaos" {%endif%}>
         <p class="text-sm block">{{ comment.created_at }} </p>
     </div>
         <div>
@@ -117,11 +119,12 @@
                 <p class="mt-4 text-wrap text-xl">{{comment.description}}</p>
             </div>
         {% if request.user == comment.user %}
-            <a href="{% url 'item:delete_comment'  comment.id item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">delete</a>
-            <a href="{% url 'item:edit_comment'  comment.id item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">edit</a>
-            <p class="mt-4 text-wrap">{{comment.description}}</p>
+        <div class="grid grid-cols-2 gap-2 w-1/2 mx-auto mt-5">
+            <a href="{% url 'item:edit_comment'  comment.id item.id %}" class="text-center py-2 bg-indigo-400 hover:bg-indigo-500 text-white rounded-xl">edit</a>
+            <a href="{% url 'item:delete_comment'  comment.id item.id %}" class="text-center py-2 bg-indigo-400 hover:bg-indigo-500 text-white rounded-xl">delete</a>
+        </div>
             {% if pk_comment == comment.id %}
-            <form method="post" action="{% url 'item:edit_comment' comment.id item.id %}" enctype="multipart/form-data">
+            <form method="post" action="{% url 'item:edit_comment' comment.id item.id %}" enctype="multipart/form-data" class="mt-4">
                 {% csrf_token %}
             
                 <div class="space-y-4">
@@ -138,7 +141,8 @@
                     </div>
                 {% endif %}
             
-                <button class="mt-6 text-center block md:w-1/2 mx-auto py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+                <div class="w-1/2 mx-auto"><button class="mt-2 text-center block md:w-1/2 mx-auto py-2 px-2 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+                </div>
             </form>
             {% endif %}
         {%endif%}
@@ -149,8 +153,9 @@
 {%endif%}
 
 <div id="target-element"></div>
+<div id="target-element"></div>
 
-<div class="mt-10 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 md:mx-20">
+<div class="mt-10 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 md:mx-20 transition-transform duration-300 transform hover:scale-105">
     <h2 class="mb-4 mb-8 text-3xl text-center font-bold dark:text-white">Related</h2>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">

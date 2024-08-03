@@ -108,7 +108,7 @@ def category(request, category_id):
 
 def log_out(request):
     logout(request)
-    return redirect('/login/')
+    return redirect('/')
 
 def signup(request):
     if request.method == 'POST':
