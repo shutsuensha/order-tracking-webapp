@@ -131,5 +131,6 @@ def signup(request):
         'form': form,
         'show_login': True,
         'show_tab': False,
-        'asdad21213': True
+        'asdad21213': True,
+        'zxcasdawd': 'target-element'
     })

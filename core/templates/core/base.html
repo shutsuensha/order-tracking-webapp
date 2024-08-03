@@ -33,7 +33,33 @@
               };
               if ('{{asdad21213}}' === 'True') {
                   document.getElementById('target-element').removeAttribute('id')
+              } else {
+                const elements = document.querySelectorAll('[id="44fdfs"]');
+
+    // Пройтись по всем найденным элементам
+                elements.forEach((element, index) => {
+                  element.href = element.href.replace('gender', 'gender_index')
+                });
               }
+
+              if ('{{xzcqer1e4123}}' === 'True') {
+                document.getElementById('zxczxczxc').removeAttribute('id')
+              }
+
+
+              if ('{{asdzxczxczxc123}}' === 'True') {
+                const elements = document.querySelectorAll('[id="44fdfs"]');
+
+    // Пройтись по всем найденным элементам
+                elements.forEach((element, index) => {
+                  element.href = element.href.replace('gender', 'gender_index')
+                });
+              }
+
+              if ('{{gdhsfguidfhgi}}' === 'True') {
+                document.getElementById('target-element').removeAttribute('id')
+              }
+
               try {
                     document.getElementById('target-element').scrollIntoView({ behavior: 'smooth' });
                 } catch(err) {
@@ -116,14 +142,15 @@
         }
 
         #nyashki, #username {
-          color: white;
-          text-decoration: none;
-          margin: 10px;
-          padding: 40px 50px;
-          background-color: rgba(0, 0, 0, 0.5);
-          border-radius: 5px;
-          font-size: 50px; /
-        }
+            color: white;
+            text-decoration: none;
+            position: relative; 
+            margin: 10px;
+            padding: 40px 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            font-size: 50px;
+          }
 
         #nyashki {
           bottom: 10px; /* Отступ от нижнего края */
@@ -148,10 +175,39 @@
         transform: scale(1.1); /* Увеличиваем изображение на 10% при наведении */
       }
 
+      ::-webkit-scrollbar {
+  width: 5px; /* ширина полосы прокрутки */
+  height: 5px; /* высота полосы прокрутки (для горизонтальной) */
+}
+
+/* Фон полосы прокрутки */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+/* Кнопки прокрутки */
+::-webkit-scrollbar-button {
+  display: none; /* скрыть кнопки прокрутки */
+}
+
+/* Сам ползунок (то, что движется) */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(220 38 38);
+  border-radius: 10px;
+}
+
+/* Ползунок при наведении */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(91 33 182);
+}
+
+      
 
       </style>
 
 <script>
+  if ('{{xzcqer1e4123}}' !== 'True') {
   document.addEventListener('DOMContentLoaded', function() {
     const header = document.getElementById('zxczxczxc');
     const target = document.getElementById('123');
@@ -173,6 +229,7 @@
     // Проверяем видимость при загрузке страницы
     checkVisibility();
   });
+}
 </script>
     </head>
 
@@ -206,7 +263,7 @@
       </header>
       {% if not request.user.is_authenticated %}
       <header class="sticky top-2 z-50">
-        <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3 mt-5">
+        <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3 mt-5" id="{{zxcasdawd}}">
           <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-2xl  bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
           <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-2xl bg-orange-400 text-white rounded-xl hover:bg-orange-500">Sign up</a>
           <a href="{% url 'core:login' %}" class="text-center px-2 py-2 text-2xl  bg-green-400 text-white rounded-xl hover:bg-green-500">Log in</a>
@@ -225,9 +282,9 @@
         <header class="sticky bottom-2 z-50 mt-5 md:w-1/2 mx-auto" id="zxczxczxc" style="display: none;">
           <div class="grid grid-cols-2 gap-4 px-3">
             <div class="grid grid-cols-3 gap-0 px-1 transition-transform duration-300 transform hover:scale-110">
-              <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'W' %}  bg-indigo-600  {%else%} bg-indigo-400  {%endif%} rounded-s-xl" href="{% url 'item:gender' 'W' %}">woman</a>
-            <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'ALL' %} bg-indigo-600 {%else%} bg-indigo-400 {%endif%}" href="{% url 'item:gender' 'ALL'%}">all </a>
-            <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'M' %}  bg-indigo-600  {%else%} bg-indigo-400 {%endif%}  rounded-e-xl" href="{% url 'item:gender' 'M' %}">man</a>
+              <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'W' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500 {%endif%} rounded-s-xl" href="{% url 'item:gender' 'W' %}" id="44fdfs">woman</a>
+            <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'ALL' %} bg-indigo-600 {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}" href="{% url 'item:gender' 'ALL'%}" id="44fdfs">all </a>
+            <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'M' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}  rounded-e-xl" href="{% url 'item:gender' 'M' %}" id="44fdfs">man</a>
             </div>
           <a class="transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-green-400 rounded-xl" href="{% url 'item:basket' %}">Корзина 🧺    {% if request.user.items.all|length != 0 %}
               {{request.user.items.all|length}}

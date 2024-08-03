@@ -27,4 +27,6 @@ urlpatterns = [
     path('<int:pk_comment>/<int:pk_item>/delete_comment', views.delete_comment, name='delete_comment'),
     path('<int:pk_comment>/<int:pk_item>/edit_comment', views.edit_comment, name='edit_comment'),
     path('all_comments', views.all_comments, name='all_comments'),
+    path('gender_index/<str:gender>', views.gender_index, name='gender_index'),
+    path('gender_detail/<str:gender>/<int:pk>', views.gender_detail, name='gender_detail'),
 ]

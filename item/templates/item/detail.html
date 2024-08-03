@@ -4,48 +4,34 @@
 
 {% block content %}
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-4" id="target-element">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-4">
 
     <div class="md:ms-20">
         <a href="{% url 'item:detail' item.id %}">
             {% if item.gender == 'W'%}
                 {% if item.image.url %}
-                <div class="bg-image hover-overlay hover-zoom">
-                    <img src="{{ item.image.url }}" class="rounded-2xl object-contain w-full" id="detail-img">
-                    <div class="mask" style="
-                        background: linear-gradient(
-                            45deg,
-                            hsla(349, 94%, 58%, 0.34),
-                            hsla(263, 87.7%, 44.7%, 0.2) 100%
-                        );
-                    "></div>
-                </div>
+                    <img src="{{ item.image.url }}" class="transition-transform duration-300 transform hover:scale-105 rounded-2xl object-contain w-full" id="detail-img">
                 {% endif %}
             {% else %}
                 {% if item.image.url %}
-                <div class="bg-image hover-overlay hover-zoom"> 
-                    <img src="{{ item.image.url }}" class="rounded-2xl object-contain w-full" id="detail-img">
-                    <div class="mask" style="
-                        background: linear-gradient(
-                            45deg,
-                            hsla(217, 89%, 51%, 0.5),
-                            hsla(263, 87.7%, 44.7%, 0.2) 100%
-                        );
-                    "></div>
-                </div>
+                    <img src="{{ item.image.url }}" class="transition-transform duration-300 transform hover:scale-105 rounded-2xl object-contain w-full" id="detail-img">
                 {% endif %}
             {% endif %}
         </a>
     </div>
 
-    <div class="px-2 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-white text-center md:me-20">
-        <h1 class="mb-4 text-3xl">{{ item.name }}</h1>
-        {% if item.gender == "W" %}
+    <div class="px-2py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-white text-center md:me-20" id="centered">
+        {% if item.gender == 'M'%}
+                                <h2 class="text-3xl text-blue-700 dark:text-white font-bold mt-20 mb-3">{{ item.name }}</h2>
+                                {% else %}
+                                <h2 class="text-3xl text-red-700 dark:text-white font-bold  mt-20 mb-3">{{ item.name }}</h2>
+                                {% endif %}
+        {% if item.gender == "M" %}
         <p class="text-pink-400 text-lg md:text-2xl">
             <strong>Для девушек</strong><br>
         </p>
         {%endif%}
-        {% if item.gender == "M" %}
+        {% if item.gender == "W" %}
         <p class="text-blue-400 text-lg md:text-2xl">
             <strong>Для парней</strong><br>
         </p>
@@ -59,12 +45,12 @@
             </p>
         {% endif %}
         {% if not request.user.is_authenticated %}
-            <a href="{% url 'item:add' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-xl">Add</a>
+            <a href="{% url 'item:add' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-green-400 hover:bg-green-500 text-white rounded-xl">Add</a>
         {% else %}
             {% if in_basket %}
             <a href="{% url 'item:remove_detail' item.id %}" class="text-center block md:w-1/2 mx-auto md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">Remove</a>
             {% else %}
-            <a href="{% url 'item:add' item.id %}" class="block md:w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500  hover:bg-blue-700 text-white rounded-xl">Add</a>
+            <a href="{% url 'item:add' item.id %}" class="w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-blue-500  hover:bg-blue-700 text-white rounded-xl">Add</a>
             {% endif %}
             {% if not request.user.is_superuser %}
                 <a href="{% url 'conversation:new' item.id %}" class="block md:w-1/2 mx-auto text-center mt-6 px-4 py-3 text-md font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact admin</a>
@@ -87,6 +73,7 @@
     </div>
 </div>
 
+{% if request.user.is_authenticated %}
 <h1 class="mb-6 text-3xl mt-4 dark:text-white text-center">Add comment</h1>
 
 <form method="post" action="{% url 'item:new_comment'  item.id %}" enctype="multipart/form-data" class="dark:text-white dark:bg-zinc-700">
@@ -108,21 +95,27 @@
 
     <button class="mt-6 block w-96 md:w-1/2 mx-auto text-center py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
 </form>
+{%endif%}
 
 {% if item.comments.all %}
-<h1 class="mb-6 text-3xl mt-4 dark:text-white md:w-1/2 mx-auto text-center">Comments</h1>
+<h1 class="mb-6 text-3xl mt-10 dark:text-white md:w-1/2 mx-auto text-center">Comments</h1>
 <div class="space-y-6 md:w-1/2 mx-auto">
 {% for comment in item.comments.all %}
     {%if op %}
-    <div id="{{op}}" class="p-6 flex {% if request.user == comment.user %} bg-sky-100 {% else %} bg-gray-100 dark:bg-zinc-500 dark:text-white{% endif %} rounded-xl">
+    <div id="{{op}}" class="p-6 text-center {% if request.user == comment.user %} bg-sky-100 {% else %} bg-gray-100 dark:bg-zinc-500 dark:text-white{% endif %} rounded-xl">
     {%else%}
-    <div class="p-6 flex {% if request.user == comment.user %} bg-sky-100 {% else %} bg-gray-100 dark:bg-zinc-500 dark:text-white{% endif %} rounded-xl">
+    <div class="p-6 text-center {% if request.user == comment.user %} bg-sky-100 {% else %} bg-gray-100 dark:bg-zinc-500 dark:text-white{% endif %} rounded-xl">
     {%endif%}
-        <div class="pr-6">
-            <strong>{{comment.user.username}}</strong>
-        </div>
+    <div>
+        <p class="text-sm block">{{ comment.created_at }} </p>
+    </div>
         <div>
-            {{ comment.created_at }}
+            <div>
+                <p class="text-3xl block">{{comment.user.username}} </p>
+            </div>
+            <div>
+                <p class="mt-4 text-wrap text-xl">{{comment.description}}</p>
+            </div>
         {% if request.user == comment.user %}
             <a href="{% url 'item:delete_comment'  comment.id item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">delete</a>
             <a href="{% url 'item:edit_comment'  comment.id item.id %}" class="text-center block md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500  hover:bg-red-700 text-white rounded-xl">edit</a>
@@ -155,51 +148,48 @@
 </div>
 {%endif%}
 
-<div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 md:mx-20">
-    <h2 class="md:mb-12 mb-8 text-2xl text-center font-semibold dark:text-white">Related</h2>
+<div id="target-element"></div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<div class="mt-10 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 md:mx-20">
+    <h2 class="mb-4 mb-8 text-3xl text-center font-bold dark:text-white">Related</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
         {% for item in related_items %}
-        <div>
-            <a href="{% url 'item:detail' item.id %}">
-                {% if item.gender == 'W'%}
-                    {% if item.image.url %}
-                    <div class="bg-image hover-overlay hover-zoom ">
-                        <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
-                        <div class="mask" style="
-                            background: linear-gradient(
-                                45deg,
-                                hsla(349, 94%, 58%, 0.34),
-                                hsla(263, 87.7%, 44.7%, 0.2) 100%
-                            );
-                        "></div>
-                    </div>
-                    {% endif %}
-                {% else %}
-                    {% if item.image.url %}
-                    <div class="bg-image hover-overlay hover-zoom">
-                        <img src="{{ item.image.url }}" class="rounded-t-xl object-cover w-full md:h-96 h-40">
-                        <div class="mask" style="
-                            background: linear-gradient(
-                                45deg,
-                                hsla(217, 89%, 51%, 0.5),
-                                hsla(263, 87.7%, 44.7%, 0.2) 100%
-                            );
-                        "></div>
-                    </div>
-                    {% endif %}
-                {% endif %}
-                <div class="md:p-6 p-2 bg-white rounded-b-xl text-center">
-                        {% if item.gender == 'M'%}
-                        <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}</h2>
-                        {% else %}
-                        <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}</h2>
+            <div class="transition-transform duration-300 transform hover:scale-105">
+                <a href="{% url 'item:detail' item.id %}">
+                    {% if item.gender == 'W'%}
+                        {% if item.image.url %}
+                            <img src="{{ item.image.url }}" class="zoom-image rounded-xl object-cover w-full md:h-96 h-40">
                         {% endif %}
-                    <strong><p class="text-md md:text-3xl font-semibold">{{ item.price }}$</p></strong>
-                </div>
-            </a>
-        </div>
+                    {% else %}
+                        {% if item.image.url %}
+                            <img src="{{ item.image.url }}" class="zoom-image rounded-xl object-cover w-full md:h-96 h-40">
+                        {% endif %}
+                    {% endif %}
+                    <div class="p-3 bg-white rounded-b-xl text-center">
+                            {% if item.gender == 'M'%}
+                            <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}</h2>
+                            {% else %}
+                            <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}</h2>
+                            {% endif %}
+                        <strong><p class="text-md md:text-3xl font-semibold">{{ item.price }}$</p></strong>
+                    </div>
+                </a>
+            </div>
         {% endfor %}
     </div>
 </div>
+
+<header class="sticky bottom-2 z-50 mt-5 md:w-1/2 mx-auto" id="1111111">
+    <div class="grid grid-cols-2 gap-4 px-3">
+      <div class="grid grid-cols-3 gap-0 px-1 transition-transform duration-300 transform hover:scale-110">
+        <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'W' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500 {%endif%} rounded-s-xl" href="{% url 'item:gender_detail' 'W' item.id %}" id="44fdfs">woman</a>
+      <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'ALL' %} bg-indigo-600 {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}" href="{% url 'item:gender_detail' 'ALL' item.id %}" id="44fdfs">all </a>
+      <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'M' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}  rounded-e-xl" href="{% url 'item:gender_detail' 'M' item.id %}" id="44fdfs">man</a>
+      </div>
+    <a class="transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-green-400 rounded-xl" href="{% url 'item:basket' %}">Корзина 🧺    {% if request.user.items.all|length != 0 %}
+        {{request.user.items.all|length}}
+{%endif%}</a>
+</div>
+  </header>
 {% endblock %}

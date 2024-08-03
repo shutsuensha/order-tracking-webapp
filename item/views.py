@@ -54,14 +54,16 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'pk_comment': pk_comment,
             'op': op,
             'js_op': js_op,
-            'asdad21213': True
+            'asdad21213': True,
         })
 
     return render(request, 'item/detail.html', {
             'item': item,
             'related_items': related_items,
             'gender': gender,
-            'asdad21213': True
+            'asdad21213': True,
+            'zxcasdawd': 'target-element',
+            'xzcqer1e4123': True
     })
 
 def items(request):
@@ -139,7 +141,66 @@ def gender_f(request, gender):
     request.session["gender"] = gender
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def gender_index(request, gender):
+    if "gender" not in request.session:
+        request.session["gender"] = ''
+    request.session["gender"] = gender
     
+    query = request.GET.get('query', '')
+    categories = Category.objects.all()
+    items = Item.objects.filter(is_sold=False)
+
+    gender = ''
+    if "gender" not in request.session:
+        gender = 'ALL'
+    else:
+        gender = request.session["gender"]
+
+    if gender != 'ALL':
+        items = items.filter(gender=gender)
+
+    if query:
+        items = items.filter(Q(name__contains=query) | Q(description__contains=query) | Q(category__name__contains=query))
+
+    return render(request, 'core/index.html', {
+        'categories': categories,
+        'items': sorted(items, key=lambda x: random.random()),
+        'name_category' : f'{query}' if query else '🪦💀',
+        'gender': gender,
+        'query': query,
+        'asdad21213': True,
+        'asdzxczxczxc123': True
+    })
+
+def gender_detail(request, gender, pk):
+    if "gender" not in request.session:
+        request.session["gender"] = ''
+    request.session["gender"] = gender
+
+    item = get_object_or_404(Item, pk=pk)
+    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)
+
+    gender = ''
+    if "gender" not in request.session:
+        gender = 'ALL'
+    else:
+        gender = request.session["gender"]
+
+    if gender != 'ALL':
+        related_items = related_items.filter(gender=gender)
+
+    
+    return render(request, 'item/detail.html', {
+            'item': item,
+            'related_items': related_items,
+            'gender': gender,
+            'asdad21213': True,
+            'zxcasdawd': 'target-element',
+            'xzcqer1e4123': True,
+            'gdhsfguidfhgi': True
+    })
+    
+
 def gender_detail_f(request, gender, pk):
     if "gender" not in request.session:
         request.session["gender"] = ''
