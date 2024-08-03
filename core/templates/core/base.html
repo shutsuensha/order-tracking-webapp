@@ -79,7 +79,12 @@
                     console.log('no commets section')
                 }
 
-                document.getElementById('xdcfghjsdioufaos').scrollIntoView({ behavior: 'smooth' });
+                try {
+                  document.getElementById('comments').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('no asdafwawf as')
+                }
+    
 
                 if ('{{show_tab}}' === 'False') {
                   document.getElementById('zxczxczxc').style.display = 'none'
