@@ -21,30 +21,16 @@
         </a>
     </div>
 
-    <div class="px-2py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-white text-center md:me-20 transition-transform duration-300 transform hover:scale-105" id="centered">
-        {% if item.gender == 'M'%}
-                                <h2 class="text-3xl text-blue-700 dark:text-white font-bold mt-20 mb-3">{{ item.name }}</h2>
-                                {% else %}
-                                <h2 class="text-3xl text-red-700 dark:text-white font-bold  mt-20 mb-3">{{ item.name }}</h2>
-                                {% endif %}
-        {% if item.gender == "M" %}
-        <p class="text-pink-400 text-lg md:text-2xl">
-            <strong>Для девушек</strong><br>
-        </p>
-        {%endif%}
-        {% if item.gender == "W" %}
-        <p class="text-blue-400 text-lg md:text-2xl">
-            <strong>Для парней</strong><br>
-        </p>
-        {%endif%}
-
-        <p class="text-lg md:text-2xl font-semibold"><strong>{{ item.price }}$</p></strong>
+    <div class="px-10 mx-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-whitemd:me-20 transition-transform duration-300 transform hover:scale-105" id="centered">
+        <hr class="dark:text-white">
+        <p class="text-3xl dark:text-red-50 mt-4"><strong>name: </strong>{{ item.name }}</p>
+        <p class="text-lg md:text-3xl dark:text-red-50"><strong>category: </strong>{{ item.category }}</p>
+        <p class="text-lg md:text-3xl dark:text-red-50"><strong>price: </strong> {{ item.price }}$</p>
+        <p class="text-lg md:text-3xl dark:text-red-50"><strong>date: </strong>{{ item.created_at }}</p>
+        <p class="text-lg md:text-3xl dark:text-red-50"><strong>description: </strong> {{ item.description }}</p>
+        <p class="text-lg md:text-3xl dark:text-red-50 mb-4"><strong>gender: </strong> {{ item.gender }}</p>
+        <hr class="dark:text-white">
     
-        {% if item.description %}
-            <p class="text-md md:text-2xl m-8">
-                {{ item.description }}
-            </p>
-        {% endif %}
         {% if not request.user.is_authenticated %}
             <a href="{% url 'item:add' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-green-400 hover:bg-green-500 text-white rounded-xl">Add</a>
         {% else %}
@@ -56,10 +42,7 @@
             {% if not request.user.is_superuser %}
                 <a href="{% url 'conversation:new' item.id %}" class="block w-1/2 mx-auto text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-green-400 hover:bg-green-500 text-white rounded-xl">Contact admin</a>
             {% endif %}
-            {% if request.user.is_superuser %}
-                <a href="{% url 'item:remove_item' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-md font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Remove permanent</a>
-                <a href="{% url 'item:edit_item' item.id %}" class="block text-center md:mt-6 mt-4 md:px-6 md:py-3 px-4 py-2 text-lg font-semibold bg-red-500 hover:bg-red-600 text-white rounded-xl">Edit</a>
-            {%endif%}
+
         {% if operation == "add" %}
         <div class="alert alert-primary mt-4 text-center md:w-1/2 mx-auto" id="id01" role="alert">
             Добавлено
@@ -70,23 +53,31 @@
             Удалено
         </div> 
         {%endif%}
+
+        {%endif%}
+
+        {% if request.user.is_superuser %}
+            <div class="grid grid-cols-2 gap-3 mt-4 w-3/4 mx-auto ">
+                <a href="{% url 'item:remove_item' item.id %}" class="block text-center py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl">Delete</a>
+                <a href="{% url 'item:edit_item' item.id %}" class="block text-center py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl">Edit</a>
+            </div>
         {%endif%}
     </div>
 </div>
 
-<div class="transition-transform duration-300 transform hover:scale-105">
+<div class="transition-transform duration-300 transform hover:scale-105 m-5">
 {% if request.user.is_authenticated %}
 <h1 class="mb-2 text-3xl mt-12  dark:text-white text-center" id="{{op}}">Add comment</h1>
 
 <form method="post" action="{% url 'item:new_comment'  item.id %}" enctype="multipart/form-data" class="mx-5 dark:text-white dark:bg-zinc-700 ">
     {% csrf_token %}
 
-    <div class="space-y-4 text-center">
+    <div class="space-y-4 text-center ">
         {{ form.as_p }}
     </div>
 
     {% if form.errors or form.non_field_errors %}
-        <div class=" mt-4 mb-3 p-6 bg-red-100 rounded-xl w-1/2 mx-auto">
+        <div class=" mt-4 mb-3 p-6 bg-red-100 rounded-xl w-1/2 mx-auto dark:text-black">
             {% for field in form %}
                 {{ field.errors }}
             {% endfor %}
@@ -132,14 +123,14 @@
                 </div>
             
                 {% if edit_form.errors or edit_form.non_field_errors %}
-                    <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                        {% for field in form %}
-                            {{ field.errors }}
-                        {% endfor %}
-            
-                        {{ form.non_field_errors }}
-                    </div>
-                {% endif %}
+        <div class=" mt-4 mb-3 p-6 bg-red-100 rounded-xl w-1/2 mx-auto dark:text-black">
+            {% for field in edit_form %}
+                {{ field.errors }}
+            {% endfor %}
+
+            {{ edit_form.non_field_errors }}
+        </div>
+    {% endif %}
             
                 <div class="w-1/2 mx-auto"><button class="mt-2 text-center block md:w-1/2 mx-auto py-2 px-2 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
                 </div>
@@ -155,6 +146,7 @@
 <div id="target-element"></div>
 <div id="target-element"></div>
 
+{% if related_items %}
 <div class="mt-10 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 md:mx-20 transition-transform duration-300 transform hover:scale-105">
     <h2 class="mb-4 mb-8 text-3xl text-center font-bold dark:text-white">Related</h2>
 
@@ -184,6 +176,7 @@
         {% endfor %}
     </div>
 </div>
+{%endif%}
 
 <header class="sticky bottom-2 z-50 mt-5 md:w-1/2 mx-auto" id="1111111">
     <div class="grid grid-cols-2 gap-4 px-3">

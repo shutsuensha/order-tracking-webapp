@@ -208,9 +208,10 @@
             {%for purchase in purchases %}
             <div class="rounded-xl">
                 <hr class="mt-4 dark:text-white">
-                <p class="text-lg md:text-3xl dark:text-white mt-5">Total: {{ purchase.price }}$</p>
+                <p class="text-lg md:text-3xl dark:text-white mt-2">Total: {{ purchase.price }}$</p>
                 <p class="text-lg md:text-3xl dark:text-white">Telegram: {{ purchase.telegram }}</p>
                 <p class="text-lg md:text-3xl dark:text-white">Date: {{ purchase.created_at }}</p>
+                <a href="{% url 'item:purchase_delete' purchase.id %}" class="block mt-2 md:w-1/2 text-center mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 hover:bg-red-700 text-white rounded-xl">Remove</a>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                         {% if purchase.items.all %}
                             {% for item in purchase.items.all %}
@@ -238,7 +239,7 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <a href="{% url 'item:purchase_delete' purchase.id %}" class="block mx-auto mt-5 md:w-1/2 text-center mt-2 mb-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm font-semibold bg-red-500 hover:bg-red-700 text-white rounded-xl">Remove</a>
+          
             </div>
             {%endfor%}
 

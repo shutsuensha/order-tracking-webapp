@@ -68,6 +68,8 @@
                 document.getElementById('comments').removeAttribute('id')
               }
 
+              
+
               try {
                     document.getElementById('target-element').scrollIntoView({ behavior: 'smooth' });
                 } catch(err) {
@@ -80,10 +82,44 @@
                 }
 
                 try {
-                  document.getElementById('comments').scrollIntoView({ behavior: 'smooth' });
+                  document.getElementById('xdcfghjsdioufaos').scrollIntoView({ behavior: 'smooth' });
                 } catch(err) {
                     console.log('no asdafwawf as')
                 }
+
+                try {
+                    document.getElementById('fjdfiojsdogi').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('no target element')
+                }
+
+
+                try {
+                    document.getElementById('aczxczxczxczxc').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('no target element')
+                }
+
+                try {
+                    document.getElementById('21312awsdasdasd').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('no target element')
+                }
+
+
+                try {
+                    document.getElementById('s0ufsduf').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('no target element')
+                }
+
+      
+                try {
+                    document.getElementById('jgsdfiogjudorsg').scrollIntoView({ behavior: 'smooth' });
+                } catch(err) {
+                    console.log('no target element')
+                }
+
     
 
                 if ('{{show_tab}}' === 'False') {
@@ -124,7 +160,6 @@
 
       <style>
         #sign_header {
-          margin-top: 6px;
           background-image: url("{% static 'images/mobile.jpg' %}"); /* Фоновое изображение */
           background-size: cover;
           background-position: center;
@@ -168,6 +203,10 @@
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 5px;
             font-size: 50px;
+          }
+
+          #username {
+            background-color: rgba(255, 0, 0, 0.5);
           }
 
       .zoom-image {
@@ -241,13 +280,6 @@
 
 
     <body class="dark:bg-zinc-700" id="target-element">
-      {% if request.user.is_superuser %}
-      <div class="grid grid-cols-3 gap-2 mt-2 px-2">
-        <a href="{% url 'item:new_category' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New category</a>
-        <a href="{% url 'item:new_item' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">New item</a>
-        <a href="{% url 'item:all_purchases' %}" class="px-2 py-2 text-lg font-semibold bg-gray-500 text-white text-center rounded-xl hover:bg-gray-700">All purchases</a>
-      </div>
-      {%endif%}
         <header class="text-center " id="sign_header" style="cursor: pointer;">
             <a href="/" id="nyashki" class="md:text-3xl text-3xl font-bold text-white">Nyashki 2024 Company, Inc 💀</a>
             {% if request.user.is_authenticated %}
@@ -255,7 +287,7 @@
             {% endif %}
       </header>
       {% if not request.user.is_authenticated %}
-      <header class="sticky top-2 z-50 transition-transform duration-300 transform hover:scale-105">
+      <header class="sticky top-2 z-50 transition-transform duration-300 transform hover:scale-105 mx-5">
         <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3 mt-5" id="{{zxcasdawd}}">
           <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-center px-2 py-2 text-2xl  bg-red-400 text-white rounded-xl hover:bg-red-500">Google</a>
           <a href="{% url 'core:signup' %}" class="text-center px-2 py-2 text-2xl bg-orange-400 text-white rounded-xl hover:bg-orange-500">Sign up</a>
@@ -265,14 +297,22 @@
         {% endif %}
 
         {% if request.user.is_authenticated %}
-        <div class="grid grid-cols-3 gap-2 mt-2 px-2 md:w-1/2 mx-auto mb-3 mt-5 transition-transform duration-300 transform hover:scale-105" id="{{zxc12qwiehjqwaiode}}">
-          <a href="{% url 'item:all_comments' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Comments {{ request.user.comments.all | length }}</a>
-          <a href="{% url 'conversation:inbox' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Inbox {{ request.user.conversations.all | length }}</a>
-          <a href="{% url 'core:logout' %}" class="block text-center m-2 px-2 py-2 text-lg md:text-xl font-semibold bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
+        <div class="grid grid-cols-3 gap-2 mt-2 px-2 w-1/2 mx-auto mb-3 mt-5 transition-transform duration-300 transform hover:scale-105" id="{{zxc12qwiehjqwaiode}}">
+          <a href="{% url 'item:all_comments' %}" class="block text-center px-2 py-2 text-lg md:text-xl  bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Comments {{ request.user.comments.all | length }}</a>
+          <a href="{% url 'conversation:inbox' %}" class="block text-center px-2 py-2 text-lg md:text-xl bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Inbox {{ request.user.conversations.all | length }}</a>
+          <a href="{% url 'core:logout' %}" class="block text-center px-2 py-2 text-lg md:text-xl bg-indigo-300 text-cyan-950 hover:text-white rounded-xl hover:bg-indigo-400">Logout</a>
           </div>
         {% endif %}
 
-      
+        {% if request.user.is_superuser %}
+        <div class="grid grid-cols-3 gap-2 mt-2 px-2 mx-auto w-1/2 transition-transform duration-300 transform hover:scale-105">
+          <a href="{% url 'item:new_category' %}" class="px-2 py-2 text-lg  bg-red-500 text-white text-center rounded-xl hover:bg-red-700">New category</a>
+          <a href="{% url 'item:new_item' %}" class="px-2 py-2 text-lg  bg-red-500 text-white text-center rounded-xl hover:bg-red-700">New item</a>
+          <a href="{% url 'item:all_purchases' %}" class="px-2 py-2 text-lg  bg-red-500 text-white text-center rounded-xl hover:bg-red-700">All purchases</a>
+        </div>
+        {%endif%}
+
+    
 
 
         <div class="px-2 mt-5">

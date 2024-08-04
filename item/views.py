@@ -106,20 +106,10 @@ def basket(request, message=None):
     items = request.user.items.all()
     purchases = Purchase.objects.filter(user=request.user)
 
-    gender = ''
-    if "gender" not in request.session:
-        gender = 'ALL'
-    else:
-        gender = request.session["gender"]
-
-    if gender != 'ALL':
-        items = items.filter(gender=gender)
-
     
 
     return render(request, 'item/basket.html', {
         'items': items,
-        'gender': gender,
         'message': message,
         'purchases': purchases[::-1],
         'asdad21213': True
@@ -263,6 +253,14 @@ def purchase(request):
         return redirect('item:basket')
     return redirect('item:basket')
 
+@login_required
+def purchase_delete_admin(request, pk):
+    if request.user.is_superuser:
+        instance = Purchase.objects.get(id=pk)
+        instance.delete()
+        return render(request, 'item/purchases.html', {
+            "purchases": Purchase.objects.all()
+        })
 
 @login_required
 def purchase_delete(request, pk):
@@ -322,6 +320,7 @@ def new_category(request):
         return render(request, 'item/new_category_form.html', {
             'form': form,
             'title': 'New Category',
+            'gdhsfguidfhgi': True
         })
             
     else:
@@ -533,7 +532,7 @@ def edit_comment(request, pk_comment, pk_item):
             comment.created_at = datetime.now()
             comment.save()
             return detail(request, pk_item, op='comments', pisya='asdasfawfawdasd123dasdxzzxc')
-        return detail(request, pk_item, pk_comment=pk_comment, form_edit=form, pisya='asdasfawfawdasd123dasdxzzxc')
+        return detail(request, pk_item, pk_comment=pk_comment, op='comments', form_edit=form, pisya='asdasfawfawdasd123dasdxzzxc')
 
     else:
         comment = Comment.objects.get(pk=pk_comment)

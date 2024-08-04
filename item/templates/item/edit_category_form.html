@@ -3,8 +3,11 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl mt-4 dark:text-white">{{ title }}</h1>
 
+<div id="s0ufsduf"></div>
+
+<h1 class="mb-6 text-3xl mt-4 dark:text-white text-center">{{ title }}</h1>
+<div class="mx-5 transition-transform duration-300 transform hover:scale-105 text-center">
 <form method="post" action="{% url 'item:edit_category' category.id %}" enctype="multipart/form-data" class="dark:text-white">
     {% csrf_token %}
 
@@ -13,15 +16,17 @@
     </div>
 
     {% if form.errors or form.non_field_errors %}
-        <div class="mb-3 p-6 bg-red-100 rounded-xl">
-            {% for field in form %}
-                {{ field.errors }}
-            {% endfor %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl mx-auto w-1/2 dark:text-black mt-2">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+    
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
 
-            {{ form.non_field_errors }}
-        </div>
-    {% endif %}
-
-    <button class="mt-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+    <div class="mx-auto w-1/2">        <button class="block mt-3 w-1/2 mx-auto text-center py-2 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+    </div>
 </form>
+</div>
 {% endblock %}

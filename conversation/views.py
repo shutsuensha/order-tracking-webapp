@@ -34,7 +34,7 @@ def new_conversation(request, item_pk):
             conversation_message.created_by = request.user
             conversation_message.save()
 
-            return redirect('item:detail', pk=item_pk)
+            return redirect('conversation:inbox')
     else:
         form = ConversationMessageForm()
     
@@ -70,6 +70,14 @@ def detail(request, pk):
             conversation.save()
 
             return redirect('conversation:detail', pk=pk)
+        else:
+            return render(request, 'conversation/detail.html', {
+                'conversation': conversation,
+                'form': form,
+                'asdad21213': True,
+                'show_tab': False,
+                'fgjdfkljgdfklgjdf': 'aczxczxczxczxc'
+    })
     else:
         form = ConversationMessageForm()
 
@@ -77,5 +85,5 @@ def detail(request, pk):
         'conversation': conversation,
         'form': form,
         'asdad21213': True,
-        'show_tab': False
+        'show_tab': False,
     })
