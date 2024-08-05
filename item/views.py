@@ -57,7 +57,8 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'asdad21213': True,
             'zxc12qwiehjqwaiode': 'target-element',
             'xzcqer1e4123': False,
-            'pisya': pisya
+            'pisya': pisya,
+            'zxcasjdlqwikjeo1i23' : True
         })
 
     return render(request, 'item/detail.html', {
@@ -66,7 +67,8 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'gender': gender,
             'asdad21213': True,
             'zxcasdawd': 'target-element',
-            'xzcqer1e4123': False
+            'xzcqer1e4123': False,
+            'zxcasjdlqwikjeo1i23' : True
     })
 
 def items(request):
@@ -189,9 +191,10 @@ def gender_detail(request, gender, pk):
             'gender': gender,
             'asdad21213': True,
             'zxcasdawd': 'target-element',
-            'xzcqer1e4123': True,
+            'xzcqer1e4123': False,
             'gdhsfguidfhgi': True,
-            'form': NewCommentForm()
+            'form': NewCommentForm(),
+            'zxcasjdlqwikjeo1i23' : True
     })
     
 
