@@ -56,7 +56,7 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'js_op': js_op,
             'asdad21213': True,
             'zxc12qwiehjqwaiode': 'target-element',
-            'xzcqer1e4123': True,
+            'xzcqer1e4123': False,
             'pisya': pisya
         })
 
@@ -66,7 +66,7 @@ def detail(request, pk, operation=None, form=None, pk_comment=None, form_edit=No
             'gender': gender,
             'asdad21213': True,
             'zxcasdawd': 'target-element',
-            'xzcqer1e4123': True
+            'xzcqer1e4123': False
     })
 
 def items(request):

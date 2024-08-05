@@ -59,6 +59,28 @@ def google_one_tap_login(request):
         return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=405)
 
 
+def all_staff(request):
+    items = Item.objects.filter(is_sold=False)
+    categories = Category.objects.all()
+
+    gender = ''
+    if "gender" not in request.session:
+        gender = 'ALL'
+    else:
+        gender = request.session["gender"]
+
+    if gender != 'ALL':
+        items = items.filter(gender=gender)
+
+    return render(request, 'core/index.html', {
+        'categories': categories,
+        'items': sorted(items, key=lambda x: random.random()),
+        'name_category' : '🪦💀',
+        'gender': gender,
+        'show_login': True,
+        'ajiogfjdhspgojdsapg': 'xjcvxzklczxkc'
+    })
+
 def index(request):
     items = Item.objects.filter(is_sold=False)
     categories = Category.objects.all()

@@ -5,7 +5,8 @@
 {% block content %}
 
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-4">
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-4" id="xcvxckjvl123">
 
     <div class="md:ms-20">
         <a href="{% url 'item:detail' item.id %}">
@@ -21,14 +22,14 @@
         </a>
     </div>
 
-    <div class="px-10 me-5 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-whitemd:me-20 transition-transform duration-300 transform hover:scale-105" id="centered">
+    <div class="weasfdasf me-5 px-10 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 dark:text-whitemd:me-20 transition-transform duration-300 transform hover:scale-105" id="centered">
         <hr class="dark:text-white">
-        <p class="text-3xl dark:text-red-50 mt-4"><strong>name: </strong>{{ item.name }}</p>
-        <p class="text-lg md:text-3xl dark:text-red-50"><strong>category: </strong>{{ item.category }}</p>
-        <p class="text-lg md:text-3xl dark:text-red-50"><strong>price: </strong> {{ item.price }}$</p>
-        <p class="text-lg md:text-3xl dark:text-red-50"><strong>date: </strong>{{ item.created_at }}</p>
-        <p class="text-lg md:text-3xl dark:text-red-50"><strong>description: </strong> {{ item.description }}</p>
-        <p class="text-lg md:text-3xl dark:text-red-50 mb-4"><strong>gender: </strong> {{ item.gender }}</p>
+        <p class="text-xl dark:text-red-50 mt-4"><strong>name: </strong>{{ item.name }}</p>
+        <p class="text-xl md:text-3xl dark:text-red-50"><strong>category: </strong>{{ item.category }}</p>
+        <p class="text-xl md:text-3xl dark:text-red-50"><strong>price: </strong> {{ item.price }}$</p>
+        <p class="text-xl md:text-3xl dark:text-red-50"><strong>date: </strong>{{ item.created_at }}</p>
+        <p class="text-xl md:text-3xl dark:text-red-50"><strong>description: </strong> {{ item.description }}</p>
+        <p class="text-xl md:text-3xl dark:text-red-50 mb-4"><strong>gender: </strong> {{ item.gender }}</p>
         <hr class="dark:text-white">
     
         {% if not request.user.is_authenticated %}
@@ -150,7 +151,7 @@
 <div class="mt-10 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 md:mx-20 transition-transform duration-300 transform hover:scale-105">
     <h2 class="mb-4 mb-8 text-3xl text-center font-bold dark:text-white">Related</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div class="xcovixcopvi grid grid-cols-2 md:grid-cols-4 gap-8">
         {% for item in related_items %}
             <div class="transition-transform duration-300 transform hover:scale-105">
                 <a href="{% url 'item:detail' item.id %}">
@@ -165,11 +166,11 @@
                     {% endif %}
                     <div class="p-3 bg-white rounded-b-xl text-center">
                             {% if item.gender == 'M'%}
-                            <h2 class="md:text-3xl text-md text-blue-700 font-semibold">{{ item.name }}</h2>
+                            <h2 class="md:text-3xl text-xl text-blue-700 font-semibold">{{ item.name }}</h2>
                             {% else %}
-                            <h2 class="md:text-3xl text-md text-red-700 font-semibold">{{ item.name }}</h2>
+                            <h2 class="md:text-3xl text-xl text-red-700 font-semibold">{{ item.name }}</h2>
                             {% endif %}
-                        <strong><p class="text-md md:text-3xl font-semibold">{{ item.price }}$</p></strong>
+                        <strong><p class="text-xl md:text-3xl font-semibold">{{ item.price }}$</p></strong>
                     </div>
                 </a>
             </div>
@@ -178,16 +179,5 @@
 </div>
 {%endif%}
 
-<header class="sticky bottom-2 z-50 mt-5 md:w-1/2 mx-auto" id="1111111">
-    <div class="grid grid-cols-2 gap-4 px-3">
-      <div class="grid grid-cols-3 gap-0 px-1 transition-transform duration-300 transform hover:scale-110">
-        <a class="text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'W' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500 {%endif%} rounded-s-xl" href="{% url 'item:gender_detail' 'W' item.id %}" id="44fdfs">woman</a>
-      <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'ALL' %} bg-indigo-600 {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}" href="{% url 'item:gender_detail' 'ALL' item.id %}" id="44fdfs">all </a>
-      <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'M' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}  rounded-e-xl" href="{% url 'item:gender_detail' 'M' item.id %}" id="44fdfs">man</a>
-      </div>
-    <a class="transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-green-400 rounded-xl" href="{% url 'item:basket' %}">Корзина 🧺    {% if request.user.items.all|length != 0 %}
-        {{request.user.items.all|length}}
-{%endif%}</a>
-</div>
-  </header>
+
 {% endblock %}
