@@ -12,8 +12,8 @@
           <h1 class="modal-title fs-5 dark:text-white" id="exampleModalLabel">💓💗💗💓💋💗😇🤬😘🤬😘 Спасибо за покупку! 💓💗💗💓💋💗😇🤬😘🤬😘💗😘💓🍔 💓💗💗💓💋💗😇🤬😘🤬😘💗😘💓🍔💗😘💓🍔</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body dark:bg-zinc-500 py-12">
-            <div class="w-3/4 mx-auto mt-15 my-2 mx-auto p-2 bg-gray-100 bg-zinc-100 dark:bg-zinc-300 rounded-xl py-10 transition-transform duration-300 transform hover:scale-105">
+        <div class="modal-body dark:bg-zinc-500 md:py-12">
+            <div class="md:w-3/4 mx-auto mt-15 my-2 mx-auto p-2 bg-gray-100 bg-zinc-100 dark:bg-zinc-300 rounded-xl py-10 transition-transform duration-300 transform hover:scale-105">
                 <h1 class="mb-2 text-3xl text-center mt-10">Enter your telegram</h1>
             
                 <form method="post" action="{% url 'item:purchase' %}">
@@ -29,7 +29,7 @@
         </div>
         <div class="modal-footer">
             <div
-        class="flex text-center text-surface dark:text-white">
+        class="flex text-surface dark:text-white">
         <div class="mt-2">
           <!-- Social media icons container -->
           <div class="mb-2 flex justify-center space-x-2">
@@ -138,7 +138,7 @@
         </div>
 
         <!--Copyright section-->
-        <div class="w-full p-4 text-center">
+        <div class="asdfghjsdkjllfhl w-full p-4 text-center">
           <a href="#">Nyashki 2024 Company, Inc 💀</a>
         </div>
     </div>
@@ -149,7 +149,7 @@
   </div>
 
 
-<div class="grid grid-cols-2 gap-8 mx-12" id="target-element">
+<div class="sdfjksdlkfjlk grid grid-cols-2 gap-8 md:mx-12" id="target-element">
     <div class="md:mt-6 mt-4 px-3 md:px-6 md:py-12 py-4 bg-gray-100 rounded-xl dark:bg-zinc-500 transition-transform duration-300 transform hover:scale-105">
         <h2 class="md:mb-12 mb-2 text-2xl text-center font-semibold dark:text-white">Корзина🧺
             {% if request.user.items.all|length != 0 %}
@@ -165,7 +165,7 @@
 
         
         {% if items %}
-        <div class="grid grid-cols-2 gap-2 w-1/2 mx-auto">
+        <div class="grid md:grid-cols-2 grid-cols-1 md:gap-2 md:w-1/2 md:mx-auto">
             <a href="{% url 'item:delete' %}"class="block text-center mb-2 mt-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm bg-red-500 hover:bg-red-700  text-white rounded-xl">Delete all</a>
             <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="block text-center mb-2 mt-2 md:px-6 md:py-3 px-2 py-2 md:text-lg text-sm bg-green-500 hover:bg-green-700  text-white rounded-xl">Buy</a>
         </div>
