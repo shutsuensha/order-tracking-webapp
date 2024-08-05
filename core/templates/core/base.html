@@ -166,12 +166,13 @@
   position: relative;
   height: 700px; /* Высота заголовка */
   display: flex;
-  align-items: center; /* Вертикальное центрирование текста */
+  align-items: flex-end; /* Вертикальное центрирование текста */
   justify-content: center; /* Горизонтальное центрирование текста */
   overflow: hidden;
   color: white; /* Цвет текста */
   background-color: #333; /* Фоновый цвет на случай отсутствия изображения */
   text-align: center;
+  padding-bottom: 10px;
 }
 
 .parallax-header a, .parallax-header strong {
@@ -202,9 +203,7 @@
             color: white;
             text-decoration: none;
             position: relative; 
-            margin: 20px;
             text-align: center;
-            padding: 40px 50px;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 5px;
             font-size: 30px;
