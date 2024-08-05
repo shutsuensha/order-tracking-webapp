@@ -19,11 +19,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
 
         
 
         <title>{% block title %}{% endblock %}</title>
+
 
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script>
@@ -177,6 +177,10 @@
       </script>
 
       <style>
+
+      body {
+          font-family: Comfortaa;
+      }
 
 @media only screen and (max-width: 768px) {
   
@@ -334,7 +338,6 @@
 <script>
   if ('{{xzcqer1e4123}}' !== 'True') {
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('zxczxc')
     const header = document.getElementById('zxczxczxc');
     const target = document.getElementById('xcvxckjvl123');
     
@@ -973,13 +976,67 @@ document.addEventListener('DOMContentLoaded', function () {
   // Добавляем слушатель для изменений медиазапроса
   mediaQuery.addEventListener('change', handleResize);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (localStorage.getItem('theme') !== 'auto') {
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      },
+      darkMode: 'class',
+  }
+}
+  if (localStorage.getItem('theme') === 'dark') {
+    document.querySelector('html').classList.add("dark")
+  }
+});
+
+
+function sdofgjsdklfgj123() {
+  console.log(localStorage.getItem('theme'))
+  if (localStorage.getItem('theme') === 'auto') {
+  tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      },
+      darkMode: 'class',
+  }
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches === false) {
+    document.querySelector('html').classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    localStorage.setItem('theme', 'light')
+  }
+
+} else {
+   
+  if(document.querySelector('html').classList.contains('dark')) {
+    document.querySelector('html').classList.remove('dark')
+    localStorage.setItem('theme', 'light')
+  } else {
+    document.querySelector('html').classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  }
+}
+}
+
 </script>
+
+
     </head>
 
 
 
-
     <body class="dark:bg-zinc-700" id="target-element">
+      
         <header class="text-center parallax-header" id="sign_header" style="cursor: pointer;">
           <div class="text-container">
             {% if request.user.is_authenticated %}
@@ -988,6 +1045,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <a href="/" id="nyashki" class="md:text-3xl text-3xl font-bold">Nyashki 2024 Company, Inc 💀</a>
           </div>
       </header>
+
       {% if not request.user.is_authenticated %}
       <header class="sticky top-2 z-50 transition-transform duration-300 transform hover:scale-105 mx-5 czxjcklzxjckl123">
         <div class="xvxcvxcvkl grid grid-cols-3 gap-2 px-2 md:w-1/2 md:mx-auto mb-3 mt-5" id="{{zxcasdawd}}">
@@ -1030,9 +1088,12 @@ document.addEventListener('DOMContentLoaded', function () {
             <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'ALL' %} bg-indigo-600 {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}" href="{% url 'item:gender' 'ALL'%}" id="44fdfs">all </a>
             <a class="text-center md:mb-3  md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg  text-white {% if gender == 'M' %}  bg-indigo-600  {%else%} bg-indigo-400 hover:bg-indigo-500  {%endif%}  rounded-e-xl" href="{% url 'item:gender' 'M' %}" id="44fdfs">man</a>
             </div>
-          <a class="gdsfujgdkfghj font-bold transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-green-400 rounded-xl" href="{% url 'item:basket' %}">Корзина 🧺    {% if request.user.items.all|length != 0 %}
-              {{request.user.items.all|length}}
-      {%endif%}</a>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="sdofgjsdklfgj123()" class="font-bold transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-sky-500 rounded-xl">dark/light</button>
+              <a class="gdsfujgdkfghj font-bold transition-transform duration-300 transform hover:scale-110 text-center md:mb-3 md:px-6 md:py-3 py-2 px-2 md:text-2xl text-lg text-white  bg-green-400 rounded-xl" href="{% url 'item:basket' %}">Корзина 🧺    {% if request.user.items.all|length != 0 %}
+                {{request.user.items.all|length}}
+        {%endif%}</a>
+            </div>
       </div>
         </header>
 
