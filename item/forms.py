@@ -27,7 +27,7 @@ class NewCommentForm(forms.ModelForm):
 class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('category', 'name', 'description', 'price', 'image',)
+        fields = ('category', 'name', 'description', 'price', 'image', 'gender')
         widgets = {
             'category': forms.Select(attrs={
                 'class': INPUT_CLASSES
@@ -42,6 +42,9 @@ class NewItemForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'image': forms.FileInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'gender': forms.Select(attrs={
                 'class': INPUT_CLASSES
             })
         }
