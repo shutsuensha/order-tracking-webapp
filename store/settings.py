@@ -16,7 +16,16 @@ BOT_API=os.getenv('BOT_API')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-BD_DIR = Path(__file__).resolve().parent.parent.parent
+DB_DIR = Path(__file__).resolve().parent.parent.parent
+DEBUG = False
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': DB_DIR / 'db.sqlite3',
+    }
+}
+'shutsuensha.pythonanywhere.com'
+ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -25,9 +34,6 @@ BD_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = 'django-insecure-=7rik&+ef^yvfmb2q3rep5aqjb-m6-7o@=xjs8z(x($aupz&(n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -139,12 +145,6 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
