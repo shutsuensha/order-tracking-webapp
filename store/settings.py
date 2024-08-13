@@ -17,7 +17,7 @@ BOT_API=os.getenv('BOT_API')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_DIR = Path(__file__).resolve().parent.parent.parent
-DEBUG = True
+DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -175,7 +175,7 @@ STATIC_ROOT = BASE_DIR / 'productionfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-STATICFILES_DIRS = [BASE_DIR / 'static']  # new
+#STATICFILES_DIRS = [BASE_DIR / 'static']  # new
 
 
 
