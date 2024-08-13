@@ -24,7 +24,7 @@ DATABASES = {
         'NAME': DB_DIR / 'db.sqlite3',
     }
 }
-'shutsuensha.pythonanywhere.com'
+#'shutsuensha.pythonanywhere.com'
 ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com']
 
 # Quick-start development settings - unsuitable for production
@@ -175,7 +175,7 @@ STATIC_ROOT = BASE_DIR / 'productionfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-STATICFILES_DIRS = [BASE_DIR / "static"]  # new
+STATICFILES_DIRS = [BASE_DIR / 'static', BASE_DIR / 'productionfiles']  # new
 
 
 
