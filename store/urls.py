@@ -12,4 +12,4 @@ urlpatterns = [
     path('inbox/', include('conversation.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
     path('google_one_tap_login/', google_one_tap_login, name='google_one_tap_login'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
