@@ -8,8 +8,8 @@ load_dotenv(os.path.join(project_folder, '.env'))
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-SOCIAL_AUTH_GITHUB_KEY='Ov23liortOZH1fUmOj8h'
-SOCIAL_AUTH_GITHUB_SECRET='78cf3f0ea3e992cd6aace984ea882c3a37a1ee3a'
+SOCIAL_AUTH_GITHUB_KEY ='Ov23liortOZH1fUmOj8h'
+SOCIAL_AUTH_GITHUB_SECRET ='78cf3f0ea3e992cd6aace984ea882c3a37a1ee3a'
 
 EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
 EMAIL_PORT=os.getenv('EMAIL_PORT')
@@ -28,6 +28,8 @@ DATABASES = {
 }
 #'shutsuensha.pythonanywhere.com'
 ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com', '127.0.0.1']
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
