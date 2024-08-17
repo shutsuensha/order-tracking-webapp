@@ -24,7 +24,7 @@ DATABASES = {
     }
 }
 #'shutsuensha.pythonanywhere.com'
-ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com']
+ALLOWED_HOSTS = ['shutsuensha.pythonanywhere.com', '127.0.0.1']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -174,7 +174,10 @@ STATIC_ROOT = BASE_DIR / 'productionfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-#STATICFILES_DIRS = [BASE_DIR / 'static']  # new
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 
 
