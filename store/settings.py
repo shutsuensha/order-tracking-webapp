@@ -8,6 +8,9 @@ load_dotenv(os.path.join(project_folder, '.env'))
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
+SOCIAL_AUTH_GITHUB_KEY=os.getenv('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET=os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
+
 EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
 EMAIL_PORT=os.getenv('EMAIL_PORT')
 EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -114,6 +118,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    
 ]
 
 
