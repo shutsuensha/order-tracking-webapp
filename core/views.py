@@ -75,7 +75,7 @@ def all_staff(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
-        'name_category' : '🪦💀',
+        'name_category' : 'All stuff',
         'gender': gender,
         'show_login': True,
         'ajiogfjdhspgojdsapg': 'xjcvxzklczxkc'
@@ -97,7 +97,7 @@ def index(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': sorted(items, key=lambda x: random.random()),
-        'name_category' : '🪦💀',
+        'name_category' : 'All stuff',
         'gender': gender,
         'show_login': True,
     })
