@@ -56,6 +56,6 @@
 
 ## Контакты
 Автор проекта: **Даниил Куприянчик**  
-Email: kupryianchyk@example.com  
-Telegram: [@yourtelegram](https://t.me/yourtelegram)
+Email: dankupr21@gmail.com
+Telegram: [@evalshine](https://t.me/evalshine)
 
