@@ -30,20 +30,12 @@
 - **Python Social Auth**: для интеграции с социальными сетями
 
 ## Установка и запуск проекта
-
-1. Клонируйте репозиторий:
     ```bash
-    https://github.com/shutsuensha/order-tracking-webapp.git
-    ```
-   
-2. Установите необходимые зависимости:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. Запустите сервер разработки:
-    ```bash
-    python manage.py runserver
+    git clone https://github.com/shutsuensha/order-tracking-webapp.git
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip3 install -r requirements.txt
+    python3 manage.py runserver
     ```
 
 ## Настройки
