@@ -33,7 +33,7 @@
 
 1. Клонируйте репозиторий:
     ```bash
-    git clone https://github.com/yourusername/order-tracking-webapp.git
+    https://github.com/shutsuensha/order-tracking-webapp.git
     ```
    
 2. Установите необходимые зависимости:
@@ -41,12 +41,7 @@
     pip install -r requirements.txt
     ```
 
-3. Выполните миграции базы данных:
-    ```bash
-    python manage.py migrate
-    ```
-
-4. Запустите сервер разработки:
+3. Запустите сервер разработки:
     ```bash
     python manage.py runserver
     ```
