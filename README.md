@@ -30,13 +30,13 @@
 - **Python Social Auth**: для интеграции с социальными сетями
 
 ## Установка и запуск проекта
-    ```bash
-    git clone https://github.com/shutsuensha/order-tracking-webapp.git
-    python3 -m venv .venv
-    source .venv/bin/activate
-    pip3 install -r requirements.txt
-    python3 manage.py runserver
-    ```
+```bash
+git clone https://github.com/shutsuensha/order-tracking-webapp.git
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+python3 manage.py runserver
+```
 
 ## Настройки
 
